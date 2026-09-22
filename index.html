@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal do Acervo — MHFMUSP / CPDoc</title>
+  <title>Museu Histórico da FMUSP — Centro de Documentação e Pesquisa (CPDoc)</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Google Fonts: Inter & Merriweather (Institutional Heritage Typography) -->
+  <!-- Tipografia Institucional: Arial/Helvetica + Fallback Inter e Serifada para Textos Jurídicos -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -19,24 +19,19 @@
         extend: {
           colors: {
             fmusp: {
-              green: '#1b5843',       /* Verde Institucional Medicina USP */
-              darkgreen: '#134434',   /* Verde escuro para hovers */
-              lightgreen: '#e8f3ee',  /* Fundo sutil esmeralda */
-              crimson: '#8b1e23',     /* Vermelho institucional USP */
-              gold: '#c69214',        /* Ouro histórico */
-              goldhover: '#a3750c',
-              navy: '#002B49',
-              lightnavy: '#0C4A6E',
-              burgundy: '#6B1D2F',
-              sidebargrey: '#686868', /* Cinza dos menus da Home */
-              sidebarhover: '#525252',
-              bglight: '#f5f6f8'
+              green: '#155c3e',        /* Verde característico dos títulos e setas da FMUSP */
+              darkgreen: '#0d402b',    /* Verde escuro para estados ativos/hover */
+              lightgreen: '#edf5f1',   /* Fundo suave para destaques */
+              crimson: '#a31f24',      /* Vermelho institucional USP */
+              bordergrey: '#e2e2e2',   /* Borda suave do menu e caixas */
+              textgrey: '#4a4a4a',     /* Cinza padrão dos textos da home */
+              headgrey: '#6b6b6b',     /* Cinza do topo do menu Home */
+              gold: '#c69214'
             }
           },
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            serif: ['Merriweather', 'serif'],
-            cinzel: ['Cinzel', 'serif']
+            sans: ['Open Sans', 'Arial', 'Helvetica', 'sans-serif'],
+            serif: ['Merriweather', 'Georgia', 'serif']
           }
         }
       }
@@ -46,25 +41,20 @@
   <style>
     /* Estilos para caixas de texto jurídico com barra de rolagem */
     .legal-scroll-box {
-      max-height: 240px;
+      max-height: 230px;
       overflow-y: scroll;
       scrollbar-width: thin;
-      scrollbar-color: #94A3B8 #F1F5F9;
+      scrollbar-color: #94A3B8 #F8FAFC;
     }
     .legal-scroll-box::-webkit-scrollbar {
-      width: 6px;
+      width: 5px;
     }
     .legal-scroll-box::-webkit-scrollbar-thumb {
-      background-color: #94A3B8;
+      background-color: #CBD5E1;
       border-radius: 4px;
     }
 
-    /* Animação suave para acordes e transições */
-    .menu-transition {
-      transition: all 0.25s ease-in-out;
-    }
-
-    /* Suporte a impressão para o recibo eletrônico */
+    /* Suporte à impressão para o comprovante eletrônico */
     @media print {
       body * {
         visibility: hidden;
@@ -86,641 +76,398 @@
   </style>
 </head>
 
-<body class="bg-fmusp-bglight text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-fmusp-green selection:text-white relative">
+<body class="bg-white text-slate-700 font-sans min-h-screen flex flex-col antialiased selection:bg-fmusp-green selection:text-white">
 
-  <!-- TOPO DE ACESSIBILIDADE E UTILITÁRIOS DA USP (Extraído da Home) -->
-  <aside aria-label="Barra de Acessibilidade e Ferramentas" class="bg-white border-b border-slate-200 text-slate-600 text-xs py-1.5 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
-      <!-- Ícones de Acessibilidade -->
-      <div class="flex items-center space-x-2">
-        <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold cursor-pointer transition text-xs" title="Fonte Normal">A</span>
-        <span class="inline-flex items-center justify-center w-6 h-6 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold cursor-pointer transition text-sm" title="Aumentar Fonte">A+</span>
-        <button type="button" class="inline-flex items-center justify-center w-6 h-6 rounded bg-slate-100 hover:bg-slate-200 text-slate-700 cursor-pointer transition" title="Alto Contraste">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-        </button>
-        <span class="text-slate-300 mx-1">|</span>
-        <a href="#tab-home" onclick="switchTab('home')" class="hover:text-fmusp-green font-medium transition">&gt; HOME</a>
-        <a href="https://intranet.medicina.usp.br" target="_blank" rel="noopener noreferrer" class="hover:text-fmusp-green font-medium transition">&gt; INTRANET</a>
-        <span class="inline-block ml-1 cursor-pointer" title="English Version">
-          <!-- Bandeira EUA -->
-          <svg class="w-4 h-3 inline rounded-sm shadow-xs border border-slate-300" viewBox="0 0 741 390">
-            <rect width="741" height="390" fill="#b22234"/>
-            <path d="M0,45h741M0,105h741M0,165h741M0,225h741M0,285h741M0,345h741" stroke="#fff" stroke-width="30"/>
-            <rect width="296" height="210" fill="#3c3b6e"/>
-            <circle cx="148" cy="105" r="5" fill="#fff"/>
-          </svg>
-        </span>
-      </div>
-
-      <!-- Busca e Links Institucionais Rápidos -->
-      <div class="flex items-center space-x-4">
-        <div class="relative">
-          <input type="text" placeholder="O que você procura?" class="bg-slate-50 border border-slate-300 rounded px-2.5 py-1 pr-7 text-xs w-44 sm:w-56 focus:outline-none focus:ring-1 focus:ring-fmusp-green focus:bg-white transition" />
-          <svg class="w-3.5 h-3.5 text-slate-400 absolute right-2 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-        </div>
-        <div class="hidden sm:flex items-center space-x-3 text-slate-600 font-medium">
-          <a href="#" class="hover:text-fmusp-green transition flex items-center gap-1">
-            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
-            Imprensa
-          </a>
-          <a href="#" class="hover:text-fmusp-green transition flex items-center gap-1">
-            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
-            Editais
-          </a>
-          <a href="#" class="hover:text-fmusp-green transition flex items-center gap-1 text-red-700">
-            <svg class="w-3.5 h-3.5 text-red-600 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-            AO VIVO
+  <!-- ================================================================= -->
+  <!-- BARRA SUPERIOR INSTITUCIONAL: ACESSIBILIDADE, BUSCA E SERVIÇOS     -->
+  <!-- ================================================================= -->
+  <header class="w-full bg-white border-b border-slate-100">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 pt-4 pb-3">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        
+        <!-- LOGOTIPO OFICIAL FMUSP / CPDOC -->
+        <div class="flex items-center">
+          <a href="javascript:void(0)" onclick="switchTab('home')" class="inline-block group" title="Página Inicial do Museu Histórico da FMUSP">
+            <img 
+              src="LogoFMUSP-CPDoc.png" 
+              alt="Faculdade de Medicina da Universidade de São Paulo — CPDoc" 
+              class="h-14 sm:h-16 w-auto object-contain transition-transform duration-150 group-hover:opacity-95"
+              onerror="this.onerror=null; this.src='https://placehold.co/240x68/ffffff/155c3e?text=MEDICINA+USP+%7C+CPDoc';"
+            />
           </a>
         </div>
-      </div>
-    </div>
-  </aside>
 
-  <!-- CABEÇALHO PRINCIPAL DA FMUSP (Reprodução Exata da Marca Institucional) -->
-  <header class="bg-white border-b border-slate-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
-      
-      <!-- Bloco de Logotipo Oficial FMUSP e Identidade do Museu Histórico -->
-      <div class="flex items-center space-x-4 sm:space-x-6">
-        <!-- Fachada Arquitetônica Ilustrada e Marca MEDICINA USP -->
-        <a href="#tab-home" onclick="switchTab('home')" class="flex items-center space-x-3 group">
-          <img 
-            src="LogoFMUSP-CPDoc.png" 
-            alt="Logotipo Faculdade de Medicina da USP — CPDoc" 
-            class="h-12 sm:h-14 w-auto max-w-[200px] object-contain transition-transform duration-200 group-hover:scale-[1.02]"
-            onerror="this.onerror=null; this.src='https://placehold.co/200x60/1b5843/ffffff?text=FMUSP+CPDoc'"
-          />
-
-          <!-- Separador Vertical Institucional -->
-          <div class="h-12 w-px bg-slate-300 hidden sm:block"></div>
-
-          <!-- Denominação Oficial do Museu e CPDoc -->
-          <div>
-            <span class="text-[11px] uppercase tracking-widest text-fmusp-green font-bold block">
-              Faculdade de Medicina da USP
+        <!-- UTILITÁRIOS: ACESSIBILIDADE, IDIOMA, BUSCA E ATALHOS -->
+        <div class="flex flex-col items-end gap-2 text-xs">
+          <!-- Linha 1: Ferramentas e Idioma -->
+          <div class="flex items-center space-x-3 text-slate-600 font-medium">
+            <div class="inline-flex items-center bg-slate-100 rounded border border-slate-200 px-1 py-0.5 space-x-1">
+              <span class="px-1.5 py-0.5 cursor-pointer hover:text-fmusp-green font-bold text-xs" title="Fonte normal">A</span>
+              <span class="px-1.5 py-0.5 cursor-pointer hover:text-fmusp-green font-bold text-sm" title="Aumentar fonte">A</span>
+              <span class="px-1.5 py-0.5 cursor-pointer hover:text-fmusp-green" title="Contraste">
+                <svg class="w-3.5 h-3.5 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+              </span>
+            </div>
+            
+            <a href="javascript:void(0)" onclick="switchTab('home')" class="hover:text-fmusp-green transition text-[11px]">&gt; HOME</a>
+            <a href="https://intranet.medicina.usp.br" target="_blank" rel="noopener noreferrer" class="hover:text-fmusp-green transition text-[11px]">&gt; INTRANET</a>
+            
+            <!-- Bandeira EUA / English -->
+            <span class="inline-block cursor-pointer" title="English Version">
+              <svg class="w-4 h-3 inline rounded-2xs border border-slate-300 shadow-2xs" viewBox="0 0 741 390">
+                <rect width="741" height="390" fill="#b22234"/>
+                <path d="M0,45h741M0,105h741M0,165h741M0,225h741M0,285h741M0,345h741" stroke="#fff" stroke-width="30"/>
+                <rect width="296" height="210" fill="#3c3b6e"/>
+                <circle cx="148" cy="105" r="5" fill="#fff"/>
+              </svg>
             </span>
-            <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-900 leading-tight">
-              Museu Histórico "Prof. Carlos da Silva Lacaz" <span class="font-light text-slate-500">| CPDoc</span>
-            </h1>
-            <p class="text-[11px] text-slate-500 mt-0.5">Centro de Pesquisa e Documentação • Gestão do Patrimônio Cultural em Saúde</p>
           </div>
-        </a>
-      </div>
 
-      <!-- BARRA DE NAVEGAÇÃO ENTRE ABAS DO SISTEMA (Preservando IDs, Ações e Conteúdo Integral) -->
-      <nav aria-label="Navegação do Portal do Acervo" class="flex flex-wrap items-center gap-1.5 text-xs sm:text-sm font-medium">
-        <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-3 py-1.5 rounded bg-fmusp-green text-white font-semibold shadow-xs transition">Início</button>
-        <button onclick="switchTab('doacao')" id="nav-doacao" class="nav-btn px-3 py-1.5 rounded text-slate-700 hover:bg-slate-100 hover:text-fmusp-green transition">Doação de Acervo</button>
-        <button onclick="switchTab('pesquisa')" id="nav-pesquisa" class="nav-btn px-3 py-1.5 rounded text-slate-700 hover:bg-slate-100 hover:text-fmusp-green transition">Acesso & Pesquisa</button>
-        <button onclick="switchTab('comercial')" id="nav-comercial" class="nav-btn px-3 py-1.5 rounded text-slate-700 hover:bg-slate-100 hover:text-fmusp-green transition">Licenciamento Comercial</button>
-        <button onclick="switchTab('admin')" id="nav-admin" class="nav-btn px-3 py-1.5 rounded bg-amber-50 text-amber-800 border border-amber-300 hover:bg-amber-100 hover:text-amber-900 transition">Painel Curatorial</button>
-      </nav>
+          <!-- Linha 2: Campo de Busca -->
+          <div class="relative w-64 sm:w-80">
+            <input 
+              type="text" 
+              placeholder="O que você procura?" 
+              class="w-full bg-slate-50/80 border border-slate-300 rounded px-3 py-1 pr-8 text-xs placeholder:text-slate-400 focus:outline-none focus:bg-white focus:border-fmusp-green transition"
+            />
+            <button type="button" aria-label="Buscar" class="absolute right-2.5 top-1.5 text-slate-400 hover:text-fmusp-green transition">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </button>
+          </div>
+
+          <!-- Linha 3: Imprensa, Editais, Ao Vivo -->
+          <div class="flex items-center space-x-4 text-[11px] text-slate-600 font-medium pt-0.5">
+            <a href="#" class="hover:text-fmusp-green transition flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+              Imprensa
+            </a>
+            <a href="#" class="hover:text-fmusp-green transition flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
+              Editais
+            </a>
+            <a href="#" class="text-slate-800 hover:text-fmusp-crimson transition flex items-center gap-1 font-semibold">
+              <svg class="w-3.5 h-3.5 text-slate-700" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+              AO VIVO
+            </a>
+          </div>
+
+        </div>
+
+      </div>
     </div>
 
-    <!-- BARRA COLORIDA INSTITUCIONAL DE CATEGORIAS DA FMUSP (Fiel à Imagem de Referência) -->
-    <div class="border-t border-slate-200 bg-white">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-3 sm:grid-cols-6 text-center text-xs font-medium text-slate-700">
-          <div class="py-2.5 border-t-2 border-fmusp-crimson hover:bg-slate-50 transition cursor-default">Institucional</div>
-          <div class="py-2.5 border-t-2 border-[#b45309] hover:bg-slate-50 transition cursor-default">Ensino</div>
-          <div class="py-2.5 border-t-2 border-[#0284c7] hover:bg-slate-50 transition cursor-default">Pesquisa</div>
-          <div class="py-2.5 border-t-2 border-[#0d9488] hover:bg-slate-50 transition cursor-default">Internacional</div>
-          <div class="py-2.5 border-t-2 border-fmusp-green bg-fmusp-lightgreen/40 font-semibold text-fmusp-green transition cursor-default">Cultura e Extensão</div>
-          <div class="py-2.5 border-t-2 border-[#7c3aed] hover:bg-slate-50 transition cursor-default">Inclusão e Pertencimento</div>
+    <!-- ================================================================= -->
+    <!-- BARRA COLORIDA DE CATEGORIAS ACADÊMICAS (IDÊNTICA À HOME DO PRINT) -->
+    <!-- ================================================================= -->
+    <nav aria-label="Categorias FMUSP" class="border-t border-slate-200 bg-white">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-3 sm:grid-cols-6 text-center text-xs font-normal text-slate-700 divide-x divide-slate-100">
+          
+          <div class="py-2.5 border-b-2 border-fmusp-crimson hover:bg-slate-50 transition cursor-default">
+            Institucional
+          </div>
+          <div class="py-2.5 border-b-2 border-[#8d5d39] hover:bg-slate-50 transition cursor-default">
+            Ensino
+          </div>
+          <div class="py-2.5 border-b-2 border-[#0c607a] hover:bg-slate-50 transition cursor-default">
+            Pesquisa
+          </div>
+          <div class="py-2.5 border-b-2 border-[#009183] hover:bg-slate-50 transition cursor-default">
+            Internacional
+          </div>
+          <div class="py-2.5 border-b-2 border-[#8b3a7d] hover:bg-slate-50 transition cursor-default">
+            Cultura e Extensão
+          </div>
+          <div class="py-2.5 border-b-2 border-[#6e1d2c] hover:bg-slate-50 transition cursor-default">
+            Inclusão e Pertencimento
+          </div>
+
         </div>
       </div>
-    </div>
-    <!-- Linha Vermelha de Contorno Clássico -->
-    <div class="h-0.5 bg-fmusp-crimson w-full"></div>
+    </nav>
   </header>
 
-  <!-- BANNER DE CONFORMIDADE REGULATÓRIA E METADADOS (Texto Integral do index.html) -->
-  <aside aria-label="Aviso Regulatório" class="bg-blue-50 border-b border-blue-200 py-1.5 px-4 text-center text-xs text-blue-900 flex items-center justify-center gap-2">
-    <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-    <strong>Ambiente Demonstrativo (Online-First):</strong> Validação eletrônica ativa com registro de metadados, criptografia SHA-256 e conformidade com a MP nº 2.200-2/2001 e a Portaria GR/USP nº 7.674/2021.
-  </aside>
-
-  <!-- CORPO PRINCIPAL: LAYOUT EM 2 COLUNAS (Menu Lateral Acordeão + Área de Conteúdo/Formulários) -->
-  <main class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+  <!-- ================================================================= -->
+  <!-- CONTEÚDO PRINCIPAL: ESTRUTURA EM 2 COLUNAS (MENU + ÁREA CENTRAL)   -->
+  <!-- ================================================================= -->
+  <div class="max-w-[1500px] mx-auto w-full px-3 sm:px-5 py-5 flex-grow">
+    <div class="flex flex-col lg:flex-row gap-5 items-start">
       
-      <!-- COLUNA LATERAL ESQUERDA: MENU DO MUSEU (Réplica Exata da Imagem da Home) -->
-      <aside class="lg:col-span-3 w-full bg-white rounded-lg border border-slate-200 shadow-xs overflow-hidden">
+      <!-- =============================================================== -->
+      <!-- MENU LATERAL ESQUERDO (LARGURA DE 1/6 DA PÁGINA)                 -->
+      <!-- =============================================================== -->
+      <aside class="w-full lg:w-1/6 shrink-0 bg-white border border-slate-200 text-[11px] sm:text-xs shadow-2xs">
         
-        <!-- Cabeçalho Cinza Escuro do Menu -->
-        <div class="bg-fmusp-sidebargrey text-white px-4 py-3 font-semibold text-sm flex items-center justify-between">
-          <span>Home</span>
-          <svg class="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <!-- Topo Cinza do Menu: "Home" -->
+        <div class="bg-fmusp-headgrey text-white px-3 py-2 font-bold text-xs uppercase tracking-wide flex items-center justify-between">
+          <a href="javascript:void(0)" onclick="switchTab('home')" class="hover:underline flex items-center gap-1">Home</a>
         </div>
 
-        <!-- Lista de Seções com Ícones Acordeão -->
-        <nav aria-label="Menu Lateral do Museu" class="divide-y divide-slate-100 text-xs text-slate-700">
+        <!-- Lista de Itens do Menu -->
+        <nav aria-label="Menu do Museu" class="divide-y divide-slate-100 text-slate-700">
           
-          <div class="p-3 hover:bg-slate-50 transition flex items-center justify-between cursor-pointer">
-            <span class="font-medium">O Museu</span>
-            <svg class="w-3.5 h-3.5 text-fmusp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          <!-- O Museu -->
+          <div class="flex items-center justify-between px-3 py-2 hover:bg-slate-50 cursor-pointer transition">
+            <span>O Museu</span>
+            <svg class="w-3 h-3 text-fmusp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
           </div>
 
-          <div class="p-3 hover:bg-slate-50 transition flex items-center justify-between cursor-pointer">
-            <span class="font-medium">Visitas</span>
-            <svg class="w-3.5 h-3.5 text-fmusp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          <!-- Visitas -->
+          <div class="flex items-center justify-between px-3 py-2 hover:bg-slate-50 cursor-pointer transition">
+            <span>Visitas</span>
+            <svg class="w-3 h-3 text-fmusp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
           </div>
 
-          <div class="p-3 hover:bg-slate-50 transition flex items-center justify-between cursor-pointer">
-            <span class="font-medium">Exposições</span>
+          <!-- Exposições -->
+          <div class="flex items-center justify-between px-3 py-2 hover:bg-slate-50 cursor-pointer transition">
+            <span>Exposições</span>
           </div>
 
-          <!-- MÓDULO EXPANDIDO: ACERVO E PESQUISA (Vinculado aos Serviços do CPDoc) -->
-          <div class="bg-slate-50/70 border-l-4 border-fmusp-green">
-            <div class="p-3 flex items-center justify-between font-bold text-fmusp-green cursor-pointer">
-              <span>Acervo e Pesquisa</span>
-              <svg class="w-3.5 h-3.5 text-fmusp-green rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-            </div>
-            <!-- Submenu idêntico ao da Home, acionando as abas e formulários -->
-            <div class="pl-4 pr-3 pb-3 space-y-2 text-[11px] text-slate-600">
-              <button type="button" onclick="switchTab('pesquisa')" class="w-full text-left hover:text-fmusp-green transition flex items-center gap-1.5 py-1">
-                <span class="text-fmusp-green font-bold">&gt;</span> Guia do acervo
-              </button>
-              <button type="button" onclick="switchTab('pesquisa')" class="w-full text-left hover:text-fmusp-green transition flex items-center gap-1.5 py-1">
-                <span class="text-fmusp-green font-bold">&gt;</span> Agendamento de pesquisa e protocolos de biossegurança
-              </button>
-              <button type="button" onclick="switchTab('home')" class="w-full text-left hover:text-fmusp-green transition flex items-center gap-1.5 py-1">
-                <span class="text-fmusp-green font-bold">&gt;</span> Sobre o acervo
-              </button>
-              <button type="button" onclick="switchTab('doacao')" class="w-full text-left hover:text-fmusp-green font-semibold text-fmusp-green transition flex items-center gap-1.5 py-1">
-                <span class="text-fmusp-green font-bold">&gt;</span> Doação de acervo
-              </button>
-              <button type="button" onclick="switchTab('comercial')" class="w-full text-left hover:text-fmusp-green transition flex items-center gap-1.5 py-1">
+          <!-- ============================================================= -->
+          <!-- ITEM: DOCUMENTAÇÃO E PESQUISA                                 -->
+          <!-- (Submenu expandido com os 5 links solicitados)                -->
+          <!-- ============================================================= -->
+          <div class="border-l-4 border-fmusp-green bg-slate-50/60">
+            <button 
+              type="button" 
+              onclick="toggleCpdocMenu()" 
+              id="btn-cpdoc-accordion"
+              class="w-full flex items-center justify-between px-2.5 py-2 text-left font-semibold text-fmusp-green hover:bg-slate-100/70 transition leading-tight"
+              aria-expanded="true"
+            >
+              <span>Documentação e Pesquisa</span>
+              <svg id="arrow-cpdoc" class="w-3 h-3 text-fmusp-green shrink-0 transition-transform duration-200 rotate-180 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+
+            <!-- SUBMENU EXPANDIDO COM OS 5 LINKS NA ORDEM EXATA REQUISITADA -->
+            <div id="sub-cpdoc" class="pl-3.5 pr-2 pb-2.5 pt-1 space-y-1 text-[11px] text-slate-600">
+              
+              <!-- 1. Sobre o Acervo -->
+              <a 
+                href="javascript:void(0)" 
+                onclick="switchTab('sobre-acervo')" 
+                id="menu-link-sobre" 
+                class="sub-menu-item block py-0.5 hover:text-fmusp-green transition"
+              >
+                <span class="text-fmusp-green font-bold">&gt;</span> Sobre o Acervo
+              </a>
+
+              <!-- 2. Guia do Acervo -->
+              <a 
+                href="javascript:void(0)" 
+                onclick="switchTab('guia-acervo')" 
+                id="menu-link-guia" 
+                class="sub-menu-item block py-0.5 hover:text-fmusp-green transition"
+              >
+                <span class="text-fmusp-green font-bold">&gt;</span> Guia do Acervo
+              </a>
+
+              <!-- 3. Acesso e Reprodução (Formulário Pesquisa) -->
+              <a 
+                href="javascript:void(0)" 
+                onclick="switchTab('pesquisa')" 
+                id="menu-link-pesquisa" 
+                class="sub-menu-item block py-0.5 hover:text-fmusp-green transition font-medium"
+              >
+                <span class="text-fmusp-green font-bold">&gt;</span> Acesso e Reprodução
+              </a>
+
+              <!-- 4. Licenciamento Comercial (Formulário Comercial) -->
+              <a 
+                href="javascript:void(0)" 
+                onclick="switchTab('comercial')" 
+                id="menu-link-comercial" 
+                class="sub-menu-item block py-0.5 hover:text-fmusp-green transition font-medium"
+              >
                 <span class="text-fmusp-green font-bold">&gt;</span> Licenciamento Comercial
-              </button>
-              <button type="button" onclick="switchTab('admin')" class="w-full text-left hover:text-amber-800 transition flex items-center gap-1.5 py-1 text-amber-900 font-medium">
-                <span class="text-amber-700 font-bold">&gt;</span> Painel Curatorial (CPDoc)
-              </button>
+              </a>
+
+              <!-- 5. Doação de Acervo (Formulário Doação) -->
+              <a 
+                href="javascript:void(0)" 
+                onclick="switchTab('doacao')" 
+                id="menu-link-doacao" 
+                class="sub-menu-item block py-0.5 hover:text-fmusp-green transition font-medium"
+              >
+                <span class="text-fmusp-green font-bold">&gt;</span> Doação de Acervo
+              </a>
+
             </div>
           </div>
 
-          <div class="p-3 hover:bg-slate-50 transition flex items-center justify-between cursor-pointer">
-            <span class="font-medium">Conservação e Restauro</span>
-            <svg class="w-3.5 h-3.5 text-fmusp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          <!-- Conservação e Restauro -->
+          <div class="flex items-center justify-between px-3 py-2 hover:bg-slate-50 cursor-pointer transition">
+            <span>Conservação e Restauro</span>
+            <svg class="w-3 h-3 text-fmusp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
           </div>
 
-          <div class="p-3 hover:bg-slate-50 transition flex items-center justify-between cursor-pointer">
-            <span class="font-medium">Livros para Download</span>
+          <!-- Livros para Download -->
+          <div class="flex items-center justify-between px-3 py-2 hover:bg-slate-50 cursor-pointer transition">
+            <span>Livros para Download</span>
           </div>
 
-          <div class="p-3 hover:bg-slate-50 transition flex items-center justify-between cursor-pointer">
-            <span class="font-medium">Redes Sociais</span>
-            <svg class="w-3.5 h-3.5 text-fmusp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          <!-- Redes Sociais -->
+          <div class="flex items-center justify-between px-3 py-2 hover:bg-slate-50 cursor-pointer transition">
+            <span>Redes Sociais</span>
+            <svg class="w-3 h-3 text-fmusp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
           </div>
 
-          <div class="p-3 hover:bg-slate-50 transition flex items-center justify-between cursor-pointer">
-            <span class="font-medium leading-tight">Museu Virtual da FMUSP em tempos de pandemia</span>
+          <!-- Museu Virtual -->
+          <div class="px-3 py-2 hover:bg-slate-50 cursor-pointer transition leading-snug">
+            <span>Museu Virtual da FMUSP em tempos de pandemia</span>
+          </div>
+
+          <!-- I Congresso Paulista -->
+          <div class="flex items-center justify-between px-3 py-2 hover:bg-slate-50 cursor-pointer transition leading-snug">
+            <span>I Congresso Paulista de História da Medicina e das Práticas de Saúde</span>
+            <svg class="w-3 h-3 text-fmusp-green shrink-0 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+          </div>
+
+          <!-- FMUSP 110 anos -->
+          <div class="px-3 py-2 hover:bg-slate-50 cursor-pointer transition leading-snug">
+            <span>FMUSP 110 anos: História e Memória</span>
+          </div>
+
+          <!-- Eventos -->
+          <div class="px-3 py-2 hover:bg-slate-50 cursor-pointer transition">
+            <span>Eventos</span>
+          </div>
+
+          <!-- Acesso Discreto ao Painel Curatorial CPDoc (Auditoria de Hashes) -->
+          <div class="px-3 py-2 bg-slate-50 text-[10px] text-slate-500 border-t border-slate-200">
+            <button type="button" onclick="switchTab('admin')" class="hover:text-fmusp-green flex items-center gap-1 font-medium text-left">
+              <svg class="w-3 h-3 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <span>Painel de Protocolos</span>
+            </button>
           </div>
 
         </nav>
-
-        <!-- Resumo de Contato Rápido e Horários do Museu (Extraído da Home) -->
-        <div class="bg-slate-50 p-4 border-t border-slate-200 text-[11px] text-slate-600 space-y-1.5">
-          <p class="font-bold text-slate-800 flex items-center gap-1">
-            <svg class="w-3.5 h-3.5 text-fmusp-green" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            Funcionamento do MHFMUSP:
-          </p>
-          <p>Segunda a sexta-feira, das 08h00 às 17h00. Entrada gratuita.</p>
-          <p class="pt-1 text-[10px] text-slate-500">
-            <strong>Endereço:</strong> Av. Dr. Arnaldo, 455 — Cerqueira César (Em frente ao Metrô Clínicas — Linha 2-Verde).
-          </p>
-        </div>
-
       </aside>
 
-      <!-- COLUNA PRINCIPAL DE CONTEÚDO (Abas, Exposição, Formulários e Painel Curatorial) -->
-      <section class="lg:col-span-9 w-full space-y-6">
+      <!-- =============================================================== -->
+      <!-- COLUNA PRINCIPAL À DIREITA (OCUPA 5/6 DA PÁGINA)                 -->
+      <!-- =============================================================== -->
+      <main class="w-full lg:w-5/6 flex-1 min-h-[500px]">
 
         <!-- ============================================================= -->
-        <!-- 1. ABA: HOME / VISÃO GERAL DOS SERVIÇOS -->
+        <!-- ABA 1: HOME INICIAL — EXIBIÇÃO DA IMAGEM Home.png            -->
         <!-- ============================================================= -->
-        <div id="tab-home" class="tab-content block space-y-6">
-          
-          <!-- HERO BANNER INSTITUCIONAL (Inspirado no Visual da Exposição do Museu da Home) -->
-          <div class="relative bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs">
-            <!-- Composição Visual com Faixa Histórica e Vitrines Científicas -->
-            <div class="h-56 sm:h-72 w-full relative bg-gradient-to-r from-slate-900 via-[#1b5843] to-slate-900 overflow-hidden flex items-end">
-              <!-- Linha do Tempo Histórica Superior (Representando a parede rosa com datas da foto) -->
-              <div class="absolute top-0 inset-x-0 bg-[#c02863] text-white py-1.5 px-4 text-[10px] sm:text-xs font-mono tracking-widest flex justify-between overflow-x-auto shadow-sm border-b border-pink-400">
-                <span>1892</span><span>1904</span><span>1907</span><span>1908</span><span>1912</span><span>1914</span><span>1915</span><span>1919</span><span>1934</span><span>1936</span><span>1936-60</span><span>1966</span>
-              </div>
-              
-              <!-- Gráfico Ilustrativo de Vitrines do Museu e Documentação Histórica -->
-              <div class="absolute inset-0 pt-8 px-6 flex items-center justify-around opacity-25 pointer-events-none">
-                <div class="w-32 h-36 border border-white/60 bg-white/10 rounded backdrop-blur-xs flex flex-col justify-end p-2 text-[9px] text-white font-mono">
-                  <span>CÚPULA VIDRO</span>
-                  <span>CERAS ANATÔMICAS</span>
-                </div>
-                <div class="w-44 h-40 border border-white/60 bg-white/10 rounded backdrop-blur-xs flex flex-col justify-end p-2 text-[9px] text-white font-mono">
-                  <span>VITRINE 02</span>
-                  <span>INSTRUMENTOS 1932</span>
-                </div>
-                <div class="hidden sm:flex w-36 h-36 border border-white/60 bg-white/10 rounded backdrop-blur-xs flex-col justify-end p-2 text-[9px] text-white font-mono">
-                  <span>MANUSCRITOS LACAZ</span>
-                  <span>ARQUIVO HISTÓRICO</span>
-                </div>
-              </div>
-
-              <!-- Gradiente de Sobreposição Institucional -->
-              <div class="relative z-10 p-6 sm:p-8 bg-gradient-to-t from-slate-950/90 via-slate-950/60 to-transparent w-full text-white">
-                <span class="inline-flex items-center px-2.5 py-0.5 rounded text-[11px] font-semibold bg-fmusp-green text-emerald-100 mb-2 border border-emerald-400/30">
-                  Exposição Permanente & Acervos Custodiados
-                </span>
-                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-serif">
-                  Venha conhecer o Museu Histórico da FMUSP
-                </h2>
-                <p class="text-xs sm:text-sm text-slate-200 mt-1 max-w-2xl">
-                  Quer conhecer a nossa atual exposição "A pele enferma: Augusto Esteves e seu museu de cera"? O Museu Histórico da FMUSP está aberto de segunda a sexta-feira das 08h00 às 17h00. A entrada é gratuita.
-                </p>
-              </div>
-            </div>
-
-            <!-- CAIXA PRINCIPAL DO PORTAL INTEGRADO (Preservação 100% de Texto e Botões) -->
-            <div class="p-6 sm:p-8 bg-white border-t border-slate-100 text-center">
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-900 border border-amber-200 mb-3">
-                Patrimônio Cultural &amp; Documentação em Saúde
-              </span>
-              <h3 class="text-2xl sm:text-3xl font-bold text-fmusp-green tracking-tight font-serif">
-                Portal Integrado de Serviços do Acervo
-              </h3>
-              <p class="mt-3 text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-                Plataforma nativamente digital para destinação de bens culturais, solicitação de reprodução para investigações técnico-científicas e formalização de licenciamento para projetos editoriais e comerciais.
-              </p>
-              
-              <!-- Botões de Ação Imediata -->
-              <div class="mt-6 flex flex-wrap justify-center gap-3">
-                <button onclick="switchTab('doacao')" class="px-5 py-2.5 rounded-lg bg-fmusp-green text-white font-medium hover:bg-fmusp-darkgreen shadow-sm transition text-sm flex items-center gap-2">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                  Iniciar Doação de Acervo
-                </button>
-                <button onclick="switchTab('pesquisa')" class="px-5 py-2.5 rounded-lg bg-slate-100 text-slate-700 font-medium hover:bg-slate-200 border border-slate-300 transition text-sm">
-                  Solicitar Acesso &amp; Pesquisa
-                </button>
-                <button onclick="switchTab('comercial')" class="px-5 py-2.5 rounded-lg bg-amber-50 text-amber-900 border border-amber-300 font-medium hover:bg-amber-100 transition text-sm">
-                  Licenciamento Comercial
-                </button>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- CARDS EXPLICATIVOS DOS 3 MÓDULOS DE ATENDIMENTO -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
-            <!-- CARD 1: DOAÇÃO DE ACERVO -->
-            <div class="bg-white rounded-xl border border-slate-200 p-6 flex flex-col justify-between hover:shadow-md transition">
-              <div>
-                <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center mb-4">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                </div>
-                <h3 class="text-lg font-bold text-slate-900">Doação de Acervo Cultural</h3>
-                <p class="text-xs text-slate-500 mt-1">Incorporação, Tombamento &amp; Cadeia de Custódia</p>
-                <p class="text-sm text-slate-600 mt-3 leading-relaxed">
-                  Formalize a oferta gratuita de instrumentos cirúrgicos, documentos, obras bibliográficas ou peças de valor médico-histórico. Sujeito à avaliação de pertinência pela Curadoria e homologação pelos órgãos colegiados da FMUSP.
-                </p>
-              </div>
-              <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                <span class="text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">100% Digital</span>
-                <button onclick="switchTab('doacao')" class="text-xs font-bold text-fmusp-green hover:underline">Acessar Formulário &rarr;</button>
-              </div>
-            </div>
-
-            <!-- CARD 2: ACESSO, CONSULTA & PESQUISA -->
-            <div class="bg-white rounded-xl border border-slate-200 p-6 flex flex-col justify-between hover:shadow-md transition">
-              <div>
-                <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center mb-4">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                </div>
-                <h3 class="text-lg font-bold text-slate-900">Acesso, Consulta &amp; Pesquisa</h3>
-                <p class="text-xs text-slate-500 mt-1">Uso Acadêmico, Didático &amp; Salvaguarda</p>
-                <p class="text-sm text-slate-600 mt-3 leading-relaxed">
-                  Solicite acesso presencial ou reproduções digitais em alta resolução para teses, dissertações e artigos. É terminantemente vedada a exploração comercial sem instrumento apartado.
-                </p>
-              </div>
-              <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                <span class="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">Citação Obrigatória</span>
-                <button onclick="switchTab('pesquisa')" class="text-xs font-bold text-fmusp-green hover:underline">Acessar Formulário &rarr;</button>
-              </div>
-            </div>
-
-            <!-- CARD 3: LICENCIAMENTO COMERCIAL -->
-            <div class="bg-white rounded-xl border border-slate-200 p-6 flex flex-col justify-between hover:shadow-md transition">
-              <div>
-                <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center mb-4">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                </div>
-                <h3 class="text-lg font-bold text-slate-900">Licenciamento Comercial</h3>
-                <p class="text-xs text-slate-500 mt-1">Proposta Onerosa &amp; Arrecadação USP</p>
-                <p class="text-sm text-slate-600 mt-3 leading-relaxed">
-                  Outorga não exclusiva para obras comerciais, audiovisuais e produtos de mercado. Exige recolhimento formal via guia institucional da USP e rigorosa observância aos preceitos éticos da saúde.
-                </p>
-              </div>
-              <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                <span class="text-xs font-semibold text-amber-600 bg-amber-50 px-2 py-0.5 rounded">Proposta Vinculante</span>
-                <button onclick="switchTab('comercial')" class="text-xs font-bold text-fmusp-green hover:underline">Acessar Formulário &rarr;</button>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- PILARES JURÍDICOS E INSTITUCIONAIS -->
-          <div class="bg-slate-900 text-slate-300 rounded-xl p-6 sm:p-8 border border-slate-800">
-            <h4 class="text-white text-base font-bold uppercase tracking-wider mb-4 flex items-center gap-2">
-              <svg class="w-5 h-5 text-fmusp-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-              Garantias Técnicas e Jurídicas do Ambiente Digital
-            </h4>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
-              <div class="bg-slate-800/80 p-3.5 rounded-lg border border-slate-700">
-                <p class="font-bold text-white mb-1">Validade Jurídica Plena</p>
-                <p class="text-slate-400">Em conformidade com a MP nº 2.200-2/2001 e o Código de Processo Civil. Dispensa impressões e cartórios.</p>
-              </div>
-              <div class="bg-slate-800/80 p-3.5 rounded-lg border border-slate-700">
-                <p class="font-bold text-white mb-1">Privacidade &amp; LGPD</p>
-                <p class="text-slate-400">Tratamento de dados estritamente voltado à salvaguarda patrimonial e pesquisa médica (Portaria GR nº 7.674/2021).</p>
-              </div>
-              <div class="bg-slate-800/80 p-3.5 rounded-lg border border-slate-700">
-                <p class="font-bold text-white mb-1">Auditoria SHA-256</p>
-                <p class="text-slate-400">Cálculo de hash criptográfico inalterável contendo IP, carimbo de data/hora oficial UTC-3 e respostas estruturadas.</p>
-              </div>
-              <div class="bg-slate-800/80 p-3.5 rounded-lg border border-slate-700">
-                <p class="font-bold text-white mb-1">Arrecadação Pública</p>
-                <p class="text-slate-400">Valores comerciais recolhidos por guia institucional da USP ou fundação conveniada credenciada (Lei nº 8.958/1994).</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- ============================================================= -->
-        <!-- 2. ABA: FORMULÁRIO E TERMO DE DOAÇÃO DE ACERVO -->
-        <!-- ============================================================= -->
-        <div id="tab-doacao" class="tab-content hidden space-y-6">
-          
-          <!-- HEADER DO MÓDULO -->
-          <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs">
-            <span class="text-xs font-bold uppercase text-fmusp-green tracking-wider">Módulo I — Salvaguarda e Entrada de Acervo</span>
-            <h2 class="text-2xl font-bold text-slate-900 mt-1 font-serif">Termo de Doação de Acervo Cultural</h2>
-            <p class="text-xs sm:text-sm text-slate-500">Transfere a posse material e propriedade definitiva ao MHFMUSP/CPDoc em regime 100% digital.</p>
-          </div>
-
-          <!-- FORMULÁRIO INTERATIVO DE DOAÇÃO -->
-          <form id="form-doacao" onsubmit="handleDoacaoSubmit(event)" class="space-y-6">
-            
-            <!-- PARTE A.1: IDENTIFICAÇÃO DO DOADOR -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-4">
-              <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide flex items-center gap-2">
-                  <span class="w-5 h-5 rounded-full bg-fmusp-green text-white text-xs flex items-center justify-center font-sans">1</span>
-                  A.1 Identificação do Doador / Proponente
-                </h3>
-                <span class="text-xs text-red-500 font-medium">* Campos Obrigatórios</span>
-              </div>
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Tipo de Doador *</label>
-                  <select id="doa_tipo_doador" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-fmusp-green focus:outline-none">
-                    <option value="Pessoa Física">Pessoa Física</option>
-                    <option value="Pessoa Jurídica">Pessoa Jurídica</option>
-                    <option value="Espólio (Herdeiros e Sucessores)">Espólio (Herdeiros e Sucessores)</option>
-                    <option value="Instituição Pública ou Privada">Instituição Pública ou Privada</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Nome Completo ou Razão Social *</label>
-                  <input type="text" id="doa_nome" required placeholder="Ex.: Dr. Roberto Santos Silva" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-fmusp-green focus:outline-none" />
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">CPF ou CNPJ *</label>
-                  <input type="text" id="doa_documento" required placeholder="000.000.000-00" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-fmusp-green focus:outline-none" />
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Grau de Relação com o Bem *</label>
-                  <select id="doa_relacao" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-fmusp-green focus:outline-none">
-                    <option value="Proprietário original">Proprietário original</option>
-                    <option value="Herdeiro-sucessor">Herdeiro-sucessor</option>
-                    <option value="Adquirente de terceiro">Adquirente de terceiro</option>
-                    <option value="Representante institucional">Representante institucional</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">E-mail para Confirmação *</label>
-                  <input type="email" id="doa_email" required placeholder="doador@exemplo.com.br" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-fmusp-green focus:outline-none" />
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Telefone de Contato (com DDD) *</label>
-                  <input type="tel" id="doa_telefone" required placeholder="(11) 99999-9999" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-fmusp-green focus:outline-none" />
-                </div>
-                <div class="sm:col-span-2">
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Endereço Completo (Logradouro, Nº, Bairro, Cidade/UF, CEP) *</label>
-                  <input type="text" id="doa_endereco" required placeholder="Av. Paulista, 1000, Apto 50, Bela Vista, São Paulo/SP, CEP 01310-100" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-fmusp-green focus:outline-none" />
-                </div>
-                <div class="sm:col-span-2">
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Upload de Documento de Identificação Oficial (PDF/JPG/PNG máx. 10MB) *</label>
-                  <input type="file" id="doa_file_id" required class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200" />
-                </div>
-              </div>
-            </div>
-
-            <!-- PARTE A.2: CARACTERIZAÇÃO DO BEM CULTURAL -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-4">
-              <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide flex items-center gap-2">
-                  <span class="w-5 h-5 rounded-full bg-fmusp-green text-white text-xs flex items-center justify-center font-sans">2</span>
-                  A.2 Descrição do Bem Cultural Doado
-                </h3>
-              </div>
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Denominação do Bem (Nome Técnico ou Popular) *</label>
-                  <input type="text" id="doa_denominacao" required placeholder="Ex.: Caixa de Instrumental Cirúrgico de Campo" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-fmusp-green focus:outline-none" />
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Quantidade de Peças/Itens *</label>
-                  <input type="number" id="doa_quantidade" min="1" value="1" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-fmusp-green focus:outline-none" />
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Datação Estimada (Ex.: 1932 ou Década de 1940) *</label>
-                  <input type="text" id="doa_datacao" required placeholder="Ex.: Século XX (c. 1930)" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-fmusp-green focus:outline-none" />
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Estado de Conservação Declarado *</label>
-                  <select id="doa_estado" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-fmusp-green focus:outline-none">
-                    <option value="Bom">Bom (íntegro e estável)</option>
-                    <option value="Regular">Regular (com desgastes naturais pelo tempo)</option>
-                    <option value="Requer intervenção urgente">Requer intervenção urgente de conservação-restauro</option>
-                  </select>
-                </div>
-                <div class="sm:col-span-2">
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Descrição Física Detalhada (Dimensões AxLxP cm, peso, marcas de fabricante) *</label>
-                  <textarea id="doa_descricao_fisica" rows="3" required placeholder="Descreva material constitutivo (ex.: aço niquelado, madeira nobre, vidro soprado), numeração de série e marcas..." class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-fmusp-green focus:outline-none"></textarea>
-                </div>
-                <div class="sm:col-span-2">
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Registro Fotográfico Mínimo (Mínimo 3 imagens: frontal, posterior, detalhes) *</label>
-                  <input type="file" multiple required class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200" />
-                </div>
-
-                <!-- GATILHOS DE BIOSSEGURANÇA E MATERIAL HUMANO -->
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Apresenta Risco Biológico, Químico ou Perfurocortante? *</label>
-                  <select id="doa_risco_bio" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-fmusp-green focus:outline-none">
-                    <option value="Não">Não</option>
-                    <option value="Sim">Sim (exige descrição de descontaminação)</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Contém Material Biológico Humano ou Dados de Pacientes? *</label>
-                  <select id="doa_has_humano" onchange="toggleHumanoBlock(this.value)" class="w-full border rounded-lg p-2.5 text-sm bg-amber-50 border-amber-300 font-medium text-amber-900 focus:ring-2 focus:ring-amber-500 focus:outline-none">
-                    <option value="Não">Não</option>
-                    <option value="Sim">Sim (ativa bloco condicional de bioética e LGPD)</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <!-- PARTE A.3 & A.4: BLOCO CONDICIONAL MATERIAL HUMANO / LGPD -->
-            <div id="bloco-condicional-humano" class="hidden bg-amber-50 border border-amber-300 p-6 rounded-xl space-y-4">
-              <div class="border-b border-amber-200 pb-2">
-                <h4 class="text-sm font-bold text-amber-900 uppercase flex items-center gap-2">
-                  <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                  A.4 Bloco Condicional — Material Biológico Humano e Dados Pessoais Sensíveis
-                </h4>
-                <p class="text-xs text-amber-800 mt-1">Obrigatório em conformidade com as resoluções do CEP/CONEP e os artigos 7º, IV e 11, II, "c" da Lei nº 13.709/2018 (LGPD).</p>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <label class="block text-xs font-semibold text-amber-900 mb-1">Consentimento Original do Paciente/Família</label>
-                  <select class="w-full border rounded-lg p-2.5 text-sm bg-white">
-                    <option value="NaoSeAplica">Não se aplica por antiguidade histórica consolidada</option>
-                    <option value="Sim">Sim (anexar documento comprobatório)</option>
-                    <option value="Nao">Não localizado nos arquivos de origem</option>
-                  </select>
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-amber-900 mb-1">Anonimização Prévia Realizada?</label>
-                  <select class="w-full border rounded-lg p-2.5 text-sm bg-white">
-                    <option value="Sim">Sim (dados nominais tarjados/descaracterizados)</option>
-                    <option value="Nao">Não (necessitará de tratamento curatorial pelo Museu)</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <!-- PARTE A.3: PROVENIÊNCIA E HISTÓRICO -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-4">
-              <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide flex items-center gap-2">
-                  <span class="w-5 h-5 rounded-full bg-fmusp-green text-white text-xs flex items-center justify-center font-sans">3</span>
-                  A.3 Histórico de Proveniência e Cadeia de Custódia
-                </h3>
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-slate-700 mb-1">Relato de Origem (Como o item entrou na posse do doador?) *</label>
-                <textarea id="doa_origem" rows="3" required placeholder="Relatar cronologicamente hospitais, clínicas, famílias ou professores que detiveram o objeto..." class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-fmusp-green focus:outline-none"></textarea>
-              </div>
-              <div class="flex items-center gap-2">
-                <input type="checkbox" id="doa_check_origem" required class="rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green w-4 h-4" />
-                <label for="doa_check_origem" class="text-xs text-slate-700 font-medium">Declaro sob as penas da lei que o bem tem origem estritamente lícita e não é objeto de litígio.</label>
-              </div>
-            </div>
-
-            <!-- PARTE B: MINUTA JURÍDICA COMPLETA EM CAIXA DE ROLAGEM -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-3">
-              <div class="flex items-center justify-between">
-                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide font-serif">
-                  PARTE B — Minuta Completa do Termo de Doação (Leitura Obrigatória)
-                </h3>
-                <span class="text-xs text-slate-400">Role para ler na íntegra</span>
-              </div>
-              <div class="legal-scroll-box bg-slate-50 border border-slate-200 rounded-lg p-4 text-xs leading-relaxed text-slate-700 font-serif space-y-3">
-                <p class="font-bold text-center uppercase tracking-wider text-slate-900">MUSEU HISTÓRICO "PROF. CARLOS DA SILVA LACAZ" — FMUSP<br/>TERMO DE DOAÇÃO DE ACERVO CULTURAL</p>
-                <p><strong>Pelo presente instrumento nativamente digital:</strong> De um lado o(a) <strong>DOADOR(A)</strong> qualificado na Parte A; e de outro lado o <strong>MUSEU HISTÓRICO "PROF. CARLOS DA SILVA LACAZ" DA FACULDADE DE MEDICINA DA UNIVERSIDADE DE SÃO PAULO</strong>, unidade integrante da estrutura da USP — autarquia estadual de regime especial inscrita no CNPJ/MF nº 63.025.530/0001-04, com sede em São Paulo/SP, sujeita ao Estatuto de Museus (Lei nº 11.904/2009) e ao Decreto nº 8.124/2013, pactuam:</p>
-                <p><strong>CLÁUSULA 1 – DO OBJETO:</strong> Doação pura, simples, irrevogável e definitiva do(s) bem(ns) cultural(is) discriminado(s), com transferência integral de posse física e propriedade dominial ao Museu.</p>
-                <p><strong>CLÁUSULA 2 – DA PROVENIÊNCIA:</strong> O Doador declara, sob as penas do art. 299 do Código Penal, ser legítimo proprietário ou possuidor com poderes bastantes, livre de ônus ou reivindicações de terceiros.</p>
-                <p><strong>CLÁUSULA 3 – DA INCORPORAÇÃO E TOMBAMENTO:</strong> O acolhimento definitivo submete-se à triagem técnica da Curadoria e homologação formal pelos colegiados competentes da Faculdade de Medicina da USP (Comissão de Orçamento e Patrimônio / Congregação), conforme o Regimento Geral da USP, convertendo-se em patrimônio público inalienável tombado.</p>
-                <p><strong>CLÁUSULA 4 – DA SALVAGUARDA E GESTÃO:</strong> Cabe exclusivamente ao Museu estabelecer diretrizes de guarda, restauro, reserva técnica, circulação e expografia.</p>
-                <p><strong>CLÁUSULA 5 – DIREITOS AUTORAIS E PATRIMONIAIS:</strong> A doação abrange o suporte material. Direitos intelectuais continuam sob a Lei nº 9.610/1998, autorizando-se a reprodução fotográfica e difusão científica institucional.</p>
-                <p><strong>CLÁUSULA 6 – DESINCORPORAÇÃO EXTRAORDINÁRIA:</strong> Havendo perda física irreversível do valor documental ou risco biológico grave, poderá ser deliberado o descarte museológico nos termos do Estatuto de Museus.</p>
-                <p><strong>CLÁUSULA 7 – DADOS PESSOAIS E LGPD:</strong> Tratamento em estrita conformidade com a Lei nº 13.709/2018 e Portaria GR nº 7.674/2021 da USP, com anonimização mandatória de laudos clínicos.</p>
-                <p><strong>CLÁUSULA 8 – GRATUIDADE:</strong> A doação é gratuita e irrevogável, não gerando quaisquer direitos indenizatórios.</p>
-                <p><strong>CLÁUSULA 9 – VALIDADE DIGITAL E FORO:</strong> Plena eficácia pela MP nº 2.200-2/2001. Eleito com exclusividade o Foro das Varas da Fazenda Pública da Capital do Estado de São Paulo.</p>
-              </div>
-            </div>
-
-            <!-- PARTE A.6: DECLARAÇÕES DE ACEITE (CHECKBOXES ATIVOS) -->
-            <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-3">
-              <h4 class="text-xs font-bold uppercase text-slate-800 tracking-wider mb-2">A.6 Declarações e Aceite Eletrônico Vinculante</h4>
-              
-              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
-                <input type="checkbox" id="doa_c1" required onchange="checkDoacaoReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
-                <span>Declaro sob as penas da lei que sou legítimo titular do bem cultural doado, estando o mesmo livre e desembaraçado de litígios de terceiros ou herdeiros.</span>
-              </label>
-              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
-                <input type="checkbox" id="doa_c2" required onchange="checkDoacaoReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
-                <span>Declaro plena ciência de que a doação é pura, gratuita e irrevogável, transferindo em definitivo a propriedade material à Faculdade de Medicina da USP.</span>
-              </label>
-              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
-                <input type="checkbox" id="doa_c3" required onchange="checkDoacaoReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
-                <span>Autorizo o tratamento dos dados fornecidos nos termos da LGPD e Portaria GR nº 7.674/2021 para registro e salvaguarda do patrimônio público.</span>
-              </label>
-              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
-                <input type="checkbox" id="doa_c4" required onchange="checkDoacaoReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
-                <span>Declaro ter lido integralmente o Termo de Doação na caixa acima e concordo irrestritamente com todas as suas cláusulas e condições jurídicas.</span>
-              </label>
-            </div>
-
-            <!-- BOTÃO DE ENVIO COM GERAÇÃO CRIPTOGRÁFICA -->
-            <div class="text-center pt-2">
-              <button type="submit" id="btn-submit-doacao" disabled class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-slate-400 text-white font-bold text-sm shadow-md transition disabled:cursor-not-allowed">
-                Concordo e Assino Digitalmente a Doação
-              </button>
-              <p class="text-[11px] text-slate-500 mt-2">
-                Ao clicar, o sistema capturará automaticamente Timestamp UTC-3, IP do terminal e Hash Criptográfico SHA-256 inalterável.
+        <section id="tab-home" class="tab-pane block space-y-4">
+          <div class="w-full bg-white border border-slate-200 shadow-2xs rounded overflow-hidden">
+            <!-- Imagem Home.png exibida à direita do menu inicialmente -->
+            <img 
+              src="Home.png" 
+              alt="Página Inicial do Museu Histórico da FMUSP" 
+              class="w-full h-auto block object-top object-contain"
+              onerror="this.onerror=null; document.getElementById('home-img-fallback').classList.remove('hidden');"
+            />
+            <!-- Fallback explicativo caso o arquivo Home.png esteja em carregamento -->
+            <div id="home-img-fallback" class="hidden p-8 text-center space-y-3 bg-slate-50 border-t border-slate-200">
+              <p class="text-sm font-semibold text-fmusp-green">Museu Histórico "Prof. Carlos da Silva Lacaz" — FMUSP</p>
+              <p class="text-xs text-slate-600 max-w-xl mx-auto">
+                A imagem <code>Home.png</code> ocupará este espaço à direita do menu. Para acessar os formulários operacionais, selecione <strong>Acesso e Reprodução</strong>, <strong>Licenciamento Comercial</strong> ou <strong>Doação de Acervo</strong> no menu lateral sob <em>Documentação e Pesquisa</em>.
               </p>
             </div>
-
-          </form>
-        </div>
+          </div>
+        </section>
 
         <!-- ============================================================= -->
-        <!-- 3. ABA: FORMULÁRIO E TERMO DE ACESSO E REPRODUÇÃO -->
+        <!-- ABA 2: SOBRE O ACERVO (CPDoc / MHFMUSP)                       -->
         <!-- ============================================================= -->
-        <div id="tab-pesquisa" class="tab-content hidden space-y-6">
+        <section id="tab-sobre-acervo" class="tab-pane hidden space-y-5">
+          <div class="border-b border-slate-200 pb-3 flex items-center justify-between">
+            <div>
+              <span class="text-[11px] uppercase tracking-wider text-fmusp-green font-semibold">Documentação e Pesquisa</span>
+              <h2 class="text-xl font-normal text-fmusp-green">Sobre o Acervo</h2>
+            </div>
+            <button onclick="switchTab('home')" class="text-xs text-slate-500 hover:text-fmusp-green">&larr; Voltar à Home</button>
+          </div>
+
+          <div class="text-xs sm:text-sm text-slate-600 space-y-4 leading-relaxed">
+            <p>
+              O acervo do <strong>Museu Histórico "Prof. Carlos da Silva Lacaz" da Faculdade de Medicina da USP</strong> congrega um dos mais representativos patrimônios materiais e documentais sobre o desenvolvimento das ciências da saúde no Brasil e na América Latina.
+            </p>
+            <p>
+              Constituído a partir das coleções originais fundadas por cátedras históricas, doações de eminentes professores, médicos, egressos e pesquisadores, o acervo engloba documentos textuais manuscritos e impressos, iconografia médica de grande valor documental, instrumentos cirúrgicos e laboratoriais dos séculos XIX e XX, além da notável coleção de modelagens dermatológicas em cera realizadas pelo artista e moldador Augusto Esteves.
+            </p>
+            <div class="p-4 bg-slate-50 border border-slate-200 rounded text-xs text-slate-700 space-y-2">
+              <p class="font-bold text-slate-800">Missão de Salvaguarda e Pesquisa</p>
+              <p>
+                O Centro de Documentação e Pesquisa (CPDoc) atua sob as diretrizes do Estatuto de Museus (Lei nº 11.904/2009) e da política arquivística da USP, garantindo tratamento conservativo, catalogação segundo normas internacionais (DCMI / Darwin Core) e disponibilização pública orientada pelo interesse acadêmico, social e científico.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- ABA 3: GUIA DO ACERVO                                         -->
+        <!-- ============================================================= -->
+        <section id="tab-guia-acervo" class="tab-pane hidden space-y-5">
+          <div class="border-b border-slate-200 pb-3 flex items-center justify-between">
+            <div>
+              <span class="text-[11px] uppercase tracking-wider text-fmusp-green font-semibold">Documentação e Pesquisa</span>
+              <h2 class="text-xl font-normal text-fmusp-green">Guia do Acervo</h2>
+            </div>
+            <button onclick="switchTab('home')" class="text-xs text-slate-500 hover:text-fmusp-green">&larr; Voltar à Home</button>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div class="p-4 border border-slate-200 rounded bg-white space-y-1.5">
+              <h3 class="font-bold text-slate-900 text-sm text-fmusp-green">Fundo Arquivístico Institucional</h3>
+              <p class="text-slate-600">Registros acadêmicos, atas de congregação, correspondências oficiais da diretoria e documentação funcional desde a fundação da Faculdade de Medicina e Cirurgia de São Paulo (1912).</p>
+            </div>
+            <div class="p-4 border border-slate-200 rounded bg-white space-y-1.5">
+              <h3 class="font-bold text-slate-900 text-sm text-fmusp-green">Coleção de Modelagens Dermatológicas (Ceras)</h3>
+              <p class="text-slate-600">Peças em cera confeccionadas pelo modelador Augusto Esteves retratando manifestações de afecções dermatológicas e infecciosas do início do século XX.</p>
+            </div>
+            <div class="p-4 border border-slate-200 rounded bg-white space-y-1.5">
+              <h3 class="font-bold text-slate-900 text-sm text-fmusp-green">Instrumental Médico-Cirúrgico</h3>
+              <p class="text-slate-600">Conjuntos instrumentais de diagnóstico, obstetrícia, microscopia, anestesia e cirurgia de campo, incluindo peças utilizadas na Revolução Constitucionalista de 1932.</p>
+            </div>
+            <div class="p-4 border border-slate-200 rounded bg-white space-y-1.5">
+              <h3 class="font-bold text-slate-900 text-sm text-fmusp-green">Fundo Pessoal Prof. Carlos da Silva Lacaz</h3>
+              <p class="text-slate-600">Correspondências científicas, artigos, notas de aula, manuscritos de micologia médica e documentação biográfica do fundador do Museu Histórico.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- ABA 4: ACESSO E REPRODUÇÃO (FORMULÁRIO DE PESQUISA)           -->
+        <!-- ============================================================= -->
+        <section id="tab-pesquisa" class="tab-pane hidden space-y-6">
           
-          <!-- HEADER DO MÓDULO -->
-          <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs">
-            <span class="text-xs font-bold uppercase text-blue-700 tracking-wider">Módulo II — Investigação Técnico-Científica</span>
-            <h2 class="text-2xl font-bold text-slate-900 mt-1 font-serif">Termo de Acesso, Consulta e Reprodução de Acervo</h2>
-            <p class="text-xs sm:text-sm text-slate-500">Regulamento de pesquisa acadêmica com vedação estrita de exploração comercial.</p>
+          <div class="border-b border-slate-200 pb-3 flex items-center justify-between">
+            <div>
+              <span class="text-[11px] uppercase tracking-wider text-fmusp-green font-semibold">Módulo II — Investigação Técnico-Científica</span>
+              <h2 class="text-xl font-normal text-fmusp-green">Termo de Acesso, Consulta e Reprodução de Acervo</h2>
+              <p class="text-xs text-slate-500 mt-0.5">Regulamento de pesquisa acadêmica com vedação estrita de exploração comercial.</p>
+            </div>
+            <button onclick="switchTab('home')" class="text-xs text-slate-500 hover:text-fmusp-green">&larr; Voltar ao Início</button>
           </div>
 
           <!-- FORMULÁRIO DE PESQUISA -->
           <form id="form-pesquisa" onsubmit="handlePesquisaSubmit(event)" class="space-y-6">
             
             <!-- PARTE A.1: CADASTRO DO PESQUISADOR -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-4">
-              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-3 flex items-center gap-2">
-                <span class="w-5 h-5 rounded-full bg-blue-700 text-white text-xs flex items-center justify-center font-sans">1</span>
+            <div class="bg-white p-5 rounded border border-slate-200 space-y-4">
+              <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2 flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-fmusp-green text-white text-[10px] flex items-center justify-center font-sans">1</span>
                 A.1 Cadastro do Pesquisador / Solicitante
               </h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Nome Completo *</label>
-                  <input type="text" id="pesq_nome" required placeholder="Dra. Mariana Costa" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-700 focus:outline-none" />
+                  <label class="block font-semibold text-slate-700 mb-1">Nome Completo *</label>
+                  <input type="text" id="pesq_nome" required placeholder="Dra. Mariana Costa" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">CPF ou Passaporte (Estrangeiros) *</label>
-                  <input type="text" id="pesq_doc" required placeholder="000.000.000-00" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-700 focus:outline-none" />
+                  <label class="block font-semibold text-slate-700 mb-1">CPF ou Passaporte (Estrangeiros) *</label>
+                  <input type="text" id="pesq_doc" required placeholder="000.000.000-00" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Vínculo Institucional *</label>
-                  <select id="pesq_vinculo" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-700 focus:outline-none">
+                  <label class="block font-semibold text-slate-700 mb-1">Vínculo Institucional *</label>
+                  <select id="pesq_vinculo" required class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none">
                     <option value="Discente de Pós-Graduação">Discente de Pós-Graduação (Mestrado/Doutorado)</option>
                     <option value="Docente-pesquisador">Docente-pesquisador</option>
                     <option value="Discente de Graduação">Discente de Graduação</option>
@@ -729,30 +476,30 @@
                   </select>
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Instituição de Ensino / Vínculo *</label>
-                  <input type="text" id="pesq_inst" required placeholder="Universidade de São Paulo (USP)" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-700 focus:outline-none" />
+                  <label class="block font-semibold text-slate-700 mb-1">Instituição de Ensino / Vínculo *</label>
+                  <input type="text" id="pesq_inst" required placeholder="Universidade de São Paulo (USP)" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">E-mail de Contato *</label>
-                  <input type="email" id="pesq_email" required placeholder="pesquisador@usp.br" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-700 focus:outline-none" />
+                  <label class="block font-semibold text-slate-700 mb-1">E-mail de Contato *</label>
+                  <input type="email" id="pesq_email" required placeholder="pesquisador@usp.br" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Comprovante de Vínculo (PDF máx 10MB) *</label>
-                  <input type="file" required class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700" />
+                  <label class="block font-semibold text-slate-700 mb-1">Comprovante de Vínculo (PDF máx 10MB) *</label>
+                  <input type="file" required class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200" />
                 </div>
               </div>
             </div>
 
             <!-- PARTE A.2: FINALIDADE DA PESQUISA -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-4">
-              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-3 flex items-center gap-2">
-                <span class="w-5 h-5 rounded-full bg-blue-700 text-white text-xs flex items-center justify-center font-sans">2</span>
+            <div class="bg-white p-5 rounded border border-slate-200 space-y-4">
+              <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2 flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-fmusp-green text-white text-[10px] flex items-center justify-center font-sans">2</span>
                 A.2 Finalidade e Projeto Científico
               </h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Natureza da Finalidade *</label>
-                  <select id="pesq_natureza" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-700 focus:outline-none">
+                  <label class="block font-semibold text-slate-700 mb-1">Natureza da Finalidade *</label>
+                  <select id="pesq_natureza" required class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none">
                     <option value="Pesquisa acadêmica (Tese/Dissertação/Artigo)">Pesquisa acadêmica (Tese/Dissertação/Artigo)</option>
                     <option value="Atividade didática em sala de aula">Atividade didática em sala de aula</option>
                     <option value="Pesquisa institucional ou curatorial">Pesquisa institucional ou curatorial</option>
@@ -760,34 +507,34 @@
                   </select>
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Aprovação em Comitê de Ética (CEP/CONEP)? *</label>
-                  <select id="pesq_cep" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-blue-700 focus:outline-none">
+                  <label class="block font-semibold text-slate-700 mb-1">Aprovação em Comitê de Ética (CEP/CONEP)? *</label>
+                  <select id="pesq_cep" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none">
                     <option value="Não se aplica">Não se aplica</option>
                     <option value="Sim">Sim (anexar número do parecer consubstanciado)</option>
                     <option value="Em tramitação">Em tramitação</option>
                   </select>
                 </div>
                 <div class="sm:col-span-2">
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Título do Projeto &amp; Resumo da Investigação (Mín. 100 caracteres) *</label>
-                  <textarea id="pesq_resumo" rows="3" required placeholder="Descreva os objetivos da investigação e como os itens do acervo serão analisados..." class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-blue-700 focus:outline-none"></textarea>
+                  <label class="block font-semibold text-slate-700 mb-1">Título do Projeto & Resumo da Investigação (Mín. 100 caracteres) *</label>
+                  <textarea id="pesq_resumo" rows="3" required placeholder="Descreva os objetivos da investigação e como os itens do acervo serão analisados..." class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none"></textarea>
                 </div>
               </div>
             </div>
 
             <!-- PARTE A.3 & A.4: ITENS SOLICITADOS & CITAÇÃO -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-4">
-              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-3 flex items-center gap-2">
-                <span class="w-5 h-5 rounded-full bg-blue-700 text-white text-xs flex items-center justify-center font-sans">3</span>
+            <div class="bg-white p-5 rounded border border-slate-200 space-y-4">
+              <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2 flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-fmusp-green text-white text-[10px] flex items-center justify-center font-sans">3</span>
                 A.3 Itens do Acervo e Modalidade de Acesso
               </h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Códigos de Tombamento ou Palavras-Chave *</label>
-                  <input type="text" id="pesq_itens" required placeholder="Ex.: MHFM-FOT-1932-0042; Manuscritos Lacaz 1954" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-blue-700 focus:outline-none" />
+                  <label class="block font-semibold text-slate-700 mb-1">Códigos de Tombamento ou Palavras-Chave *</label>
+                  <input type="text" id="pesq_itens" required placeholder="Ex.: MHFM-FOT-1932-0042; Manuscritos Lacaz 1954" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Modalidade Operacional Solicitada *</label>
-                  <select id="pesq_modalidade" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-blue-700 focus:outline-none">
+                  <label class="block font-semibold text-slate-700 mb-1">Modalidade Operacional Solicitada *</label>
+                  <select id="pesq_modalidade" required class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none">
                     <option value="Consulta a matriz digitalizada existente">Consulta a matriz digitalizada existente</option>
                     <option value="Nova reprodução fotográfica de alta resolução">Nova reprodução fotográfica de alta resolução</option>
                     <option value="Consulta presencial ao original (sujeita a agendamento)">Consulta presencial ao original (sujeita a agendamento)</option>
@@ -795,23 +542,23 @@
                 </div>
               </div>
               
-              <div class="bg-blue-50 border border-blue-200 p-4 rounded-lg text-xs space-y-1 text-blue-900">
-                <p class="font-bold">Forma Padronizada de Crédito e Citação (Norma ABNT Obrigatória):</p>
-                <p class="italic bg-white p-2 rounded border border-blue-100 select-all font-mono">
+              <div class="bg-slate-50 border border-slate-200 p-3 rounded text-xs space-y-1 text-slate-700">
+                <p class="font-bold text-slate-900">Forma Padronizada de Crédito e Citação (Norma ABNT Obrigatória):</p>
+                <p class="italic bg-white p-2 rounded border border-slate-200 font-mono text-[11px] select-all">
                   Acervo do Museu Histórico "Prof. Carlos da Silva Lacaz" — Faculdade de Medicina da Universidade de São Paulo (MHFMUSP). Fundo [Coleção], Tombamento [Código].
                 </p>
               </div>
             </div>
 
             <!-- PARTE B: MINUTA JURÍDICA DE ACESSO -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-3">
+            <div class="bg-white p-5 rounded border border-slate-200 space-y-2">
               <div class="flex items-center justify-between">
-                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide font-serif">
+                <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide">
                   PARTE B — Termo de Compromisso e Salvaguarda (Leitura Obrigatória)
                 </h3>
-                <span class="text-xs text-slate-400">Role para ler na íntegra</span>
+                <span class="text-[11px] text-slate-400">Role para ler na íntegra</span>
               </div>
-              <div class="legal-scroll-box bg-slate-50 border border-slate-200 rounded-lg p-4 text-xs leading-relaxed text-slate-700 font-serif space-y-3">
+              <div class="legal-scroll-box bg-slate-50 border border-slate-200 rounded p-3 text-xs leading-relaxed text-slate-700 font-serif space-y-2.5">
                 <p class="font-bold text-center uppercase tracking-wider text-slate-900">MUSEU HISTÓRICO "PROF. CARLOS DA SILVA LACAZ" — FMUSP<br/>TERMO PARA ACESSO E REPRODUÇÃO DE ACERVO</p>
                 <p><strong>CLÁUSULA 1 – DO OBJETO:</strong> Autorização de consulta e reprodução restrita às finalidades técnico-científicas e acadêmicas expressamente informadas pelo Solicitante na Parte A.</p>
                 <p><strong>CLÁUSULA 2 – DAS DIRETRIZES DE SALVAGUARDA:</strong> Acesso condicionado ao laudo de conservação preventiva. Peças com fragilidade física ou dados não anonimizados poderão ter consulta restringida.</p>
@@ -826,130 +573,131 @@
             </div>
 
             <!-- DECLARAÇÕES DE ACEITE -->
-            <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-3">
-              <h4 class="text-xs font-bold uppercase text-slate-800 tracking-wider mb-2">A.5 Declarações e Aceite de Pesquisa</h4>
-              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
-                <input type="checkbox" id="pesq_c1" required onchange="checkPesquisaReady()" class="mt-0.5 rounded border-slate-300 text-blue-700 focus:ring-blue-700" />
+            <div class="bg-slate-50 p-5 rounded border border-slate-200 space-y-2.5">
+              <h4 class="text-xs font-bold uppercase text-slate-800 tracking-wider mb-1">A.5 Declarações e Aceite de Pesquisa</h4>
+              <label class="flex items-start gap-2 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" id="pesq_c1" required onchange="checkPesquisaReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
                 <span>Comprometo-me formalmente a utilizar os dados e reproduções unicamente para o projeto de pesquisa declarado, ciente de que É VEDADO O USO COMERCIAL.</span>
               </label>
-              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
-                <input type="checkbox" id="pesq_c2" required onchange="checkPesquisaReady()" class="mt-0.5 rounded border-slate-300 text-blue-700 focus:ring-blue-700" />
+              <label class="flex items-start gap-2 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" id="pesq_c2" required onchange="checkPesquisaReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
                 <span>Obrigo-me a incluir o crédito padronizado ao MHFMUSP em qualquer publicação e a fornecer 1 exemplar da obra ao CPDoc.</span>
               </label>
-              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
-                <input type="checkbox" id="pesq_c3" required onchange="checkPesquisaReady()" class="mt-0.5 rounded border-slate-300 text-blue-700 focus:ring-blue-700" />
+              <label class="flex items-start gap-2 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" id="pesq_c3" required onchange="checkPesquisaReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
                 <span>Assumo inteira responsabilidade pela observância da LGPD e normas de bioética, anonimizando dados sensíveis de terceiros.</span>
               </label>
-              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
-                <input type="checkbox" id="pesq_c4" required onchange="checkPesquisaReady()" class="mt-0.5 rounded border-slate-300 text-blue-700 focus:ring-blue-700" />
+              <label class="flex items-start gap-2 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" id="pesq_c4" required onchange="checkPesquisaReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
                 <span>Declaro ter lido e concordar na íntegra com os termos e cláusulas do Termo de Acesso e Reprodução.</span>
               </label>
             </div>
 
             <div class="text-center pt-2">
-              <button type="submit" id="btn-submit-pesquisa" disabled class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-slate-400 text-white font-bold text-sm shadow-md transition disabled:cursor-not-allowed">
+              <button type="submit" id="btn-submit-pesquisa" disabled class="w-full sm:w-auto px-6 py-2.5 rounded bg-slate-400 text-white font-semibold text-xs uppercase tracking-wider transition disabled:cursor-not-allowed">
                 Concordo e Envio a Solicitação de Pesquisa
               </button>
             </div>
           </form>
-        </div>
+        </section>
 
         <!-- ============================================================= -->
-        <!-- 4. ABA: FORMULÁRIO E TERMO DE LICENCIAMENTO COMERCIAL -->
+        <!-- ABA 5: LICENCIAMENTO COMERCIAL (FORMULÁRIO COMERCIAL)         -->
         <!-- ============================================================= -->
-        <div id="tab-comercial" class="tab-content hidden space-y-6">
+        <section id="tab-comercial" class="tab-pane hidden space-y-6">
           
-          <!-- HEADER DO MÓDULO -->
-          <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs">
-            <span class="text-xs font-bold uppercase text-amber-700 tracking-wider">Módulo III — Exploração Econômica e Direitos Patrimoniais</span>
-            <h2 class="text-2xl font-bold text-slate-900 mt-1 font-serif">Termo de Autorização e Licenciamento Comercial de Acervo</h2>
-            <p class="text-xs sm:text-sm text-slate-500">Instrumento apartado referido na Cláusula 6 do Termo de Acesso. Outorga onerosa, não exclusiva e vinculada à arrecadação pública USP.</p>
+          <div class="border-b border-slate-200 pb-3 flex items-center justify-between">
+            <div>
+              <span class="text-[11px] uppercase tracking-wider text-fmusp-green font-semibold">Módulo III — Exploração Econômica e Direitos Patrimoniais</span>
+              <h2 class="text-xl font-normal text-fmusp-green">Termo de Autorização e Licenciamento Comercial de Acervo</h2>
+              <p class="text-xs text-slate-500 mt-0.5">Instrumento apartado referido na Cláusula 6 do Termo de Acesso. Outorga onerosa, não exclusiva e vinculada à arrecadação pública USP.</p>
+            </div>
+            <button onclick="switchTab('home')" class="text-xs text-slate-500 hover:text-fmusp-green">&larr; Voltar ao Início</button>
           </div>
 
-          <!-- FORMULÁRIO COMERCIAL -->
           <form id="form-comercial" onsubmit="handleComercialSubmit(event)" class="space-y-6">
             
             <!-- PARTE A.1: QUALIFICAÇÃO DA SOLICITANTE -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-4">
-              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-3 flex items-center gap-2">
-                <span class="w-5 h-5 rounded-full bg-amber-600 text-white text-xs flex items-center justify-center font-sans">1</span>
+            <div class="bg-white p-5 rounded border border-slate-200 space-y-4">
+              <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2 flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-fmusp-green text-white text-[10px] flex items-center justify-center font-sans">1</span>
                 A.1 Qualificação da Empresa Solicitante / Representante
               </h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Tipo de Solicitante *</label>
-                  <select id="com_tipo" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-amber-600 focus:outline-none">
+                  <label class="block font-semibold text-slate-700 mb-1">Tipo de Solicitante *</label>
+                  <select id="com_tipo" required class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none">
                     <option value="Pessoa Jurídica">Pessoa Jurídica (Empresa/Editora/Produtora)</option>
                     <option value="Pessoa Física com Fins Comerciais">Pessoa Física com Fins Comerciais (Autônomo/Produtor)</option>
                   </select>
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Razão Social &amp; Nome Fantasia *</label>
-                  <input type="text" id="com_razao" required placeholder="Ex.: Editora Científica do Brasil Ltda." class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-amber-600 focus:outline-none" />
+                  <label class="block font-semibold text-slate-700 mb-1">Razão Social & Nome Fantasia *</label>
+                  <input type="text" id="com_razao" required placeholder="Ex.: Editora Científica do Brasil Ltda." class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">CNPJ ou CPF Comercial *</label>
-                  <input type="text" id="com_cnpj" required placeholder="00.000.000/0001-00" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-amber-600 focus:outline-none" />
+                  <label class="block font-semibold text-slate-700 mb-1">CNPJ ou CPF Comercial *</label>
+                  <input type="text" id="com_cnpj" required placeholder="00.000.000/0001-00" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Representante Legal Responsável *</label>
-                  <input type="text" id="com_rep_nome" required placeholder="Ex.: Carlos Eduardo Meirelles (Diretor)" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-amber-600 focus:outline-none" />
+                  <label class="block font-semibold text-slate-700 mb-1">Representante Legal Responsável *</label>
+                  <input type="text" id="com_rep_nome" required placeholder="Ex.: Carlos Eduardo Meirelles (Diretor)" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">E-mail Corporativo *</label>
-                  <input type="email" id="com_email" required placeholder="juridico@editora.com.br" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-amber-600 focus:outline-none" />
+                  <label class="block font-semibold text-slate-700 mb-1">E-mail Corporativo *</label>
+                  <input type="email" id="com_email" required placeholder="juridico@editora.com.br" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Upload dos Atos Constitutivos / Procuração *</label>
-                  <input type="file" required class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700" />
+                  <label class="block font-semibold text-slate-700 mb-1">Upload dos Atos Constitutivos / Procuração *</label>
+                  <input type="file" required class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200" />
                 </div>
               </div>
             </div>
 
             <!-- PARTE A.2: ESCOPO DO PROJETO COMERCIAL -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-4">
-              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-3 flex items-center gap-2">
-                <span class="w-5 h-5 rounded-full bg-amber-600 text-white text-xs flex items-center justify-center font-sans">2</span>
+            <div class="bg-white p-5 rounded border border-slate-200 space-y-4">
+              <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2 flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-fmusp-green text-white text-[10px] flex items-center justify-center font-sans">2</span>
                 A.2 Detalhamento do Projeto Comercial e Escopo de Uso
               </h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Códigos de Acervo Pretendidos *</label>
-                  <input type="text" id="com_itens" required placeholder="Ex.: MHFM-LIV-1890-0012; MHFM-INS-1925-0089" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-amber-600 focus:outline-none" />
+                  <label class="block font-semibold text-slate-700 mb-1">Códigos de Acervo Pretendidos *</label>
+                  <input type="text" id="com_itens" required placeholder="Ex.: MHFM-LIV-1890-0012; MHFM-INS-1925-0089" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Território de Distribuição *</label>
-                  <select id="com_territorio" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-amber-600 focus:outline-none">
+                  <label class="block font-semibold text-slate-700 mb-1">Território de Distribuição *</label>
+                  <select id="com_territorio" required class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none">
                     <option value="Território Nacional (Brasil)">Território Nacional (Brasil)</option>
                     <option value="Internacional / Global">Internacional / Global</option>
                     <option value="Digital sem restrição geográfica">Digital sem restrição geográfica</option>
                   </select>
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Tiragem ou Alcance Estimado *</label>
-                  <input type="text" id="com_tiragem" required placeholder="Ex.: 3.000 exemplares impressos" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-amber-600 focus:outline-none" />
+                  <label class="block font-semibold text-slate-700 mb-1">Tiragem ou Alcance Estimado *</label>
+                  <input type="text" id="com_tiragem" required placeholder="Ex.: 3.000 exemplares impressos" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Período de Exploração Pretendido *</label>
-                  <input type="text" id="com_periodo" required placeholder="Ex.: 24 meses (10/2026 a 10/2028)" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-amber-600 focus:outline-none" />
+                  <label class="block font-semibold text-slate-700 mb-1">Período de Exploração Pretendido *</label>
+                  <input type="text" id="com_periodo" required placeholder="Ex.: 24 meses (10/2026 a 10/2028)" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
                 </div>
                 <div class="sm:col-span-2">
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Descrição do Produto ou Serviço Final (Mín. 200 caracteres) *</label>
-                  <textarea id="com_desc" rows="3" required placeholder="Descreva o produto com detalhes: livro biográfico de luxo, documentário para streaming, jogo educativo, etc..." class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-amber-600 focus:outline-none"></textarea>
+                  <label class="block font-semibold text-slate-700 mb-1">Descrição do Produto ou Serviço Final (Mín. 200 caracteres) *</label>
+                  <textarea id="com_desc" rows="3" required placeholder="Descreva o produto com detalhes: livro biográfico de luxo, documentário para streaming, jogo educativo, etc..." class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none"></textarea>
                 </div>
               </div>
             </div>
 
             <!-- PARTE A.3: CONDIÇÕES FINANCEIRAS & RECEITA PÚBLICA -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-4">
-              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-3 flex items-center gap-2">
-                <span class="w-5 h-5 rounded-full bg-amber-600 text-white text-xs flex items-center justify-center font-sans">3</span>
+            <div class="bg-white p-5 rounded border border-slate-200 space-y-4">
+              <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2 flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-fmusp-green text-white text-[10px] flex items-center justify-center font-sans">3</span>
                 A.3 Proposta Financeira e Arrecadação USP (Lei nº 8.958/1994)
               </h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Modalidade de Contrapartida Proposta *</label>
-                  <select id="com_modalidade" required class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-amber-600 focus:outline-none">
+                  <label class="block font-semibold text-slate-700 mb-1">Modalidade de Contrapartida Proposta *</label>
+                  <select id="com_modalidade" required class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none">
                     <option value="Taxa Fixa Única de Licenciamento">Taxa Fixa Única de Licenciamento</option>
                     <option value="Royalties sobre Faturamento Bruto">Royalties sobre Faturamento Bruto</option>
                     <option value="Modelo Híbrido (Taxa Fixa + Royalties)">Modelo Híbrido (Taxa Fixa + Royalties)</option>
@@ -957,42 +705,42 @@
                   </select>
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-slate-700 mb-1">Preço de Venda Unitário Previsto (R$) *</label>
-                  <input type="text" id="com_preco" required placeholder="R$ 89,90" class="w-full border border-slate-300 rounded-lg p-2.5 text-sm bg-slate-50 focus:ring-2 focus:ring-amber-600 focus:outline-none" />
+                  <label class="block font-semibold text-slate-700 mb-1">Preço de Venda Unitário Previsto (R$) *</label>
+                  <input type="text" id="com_preco" required placeholder="R$ 89,90" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
                 </div>
               </div>
-              <div class="bg-amber-50 p-3 rounded-lg border border-amber-200 text-xs text-amber-900">
+              <div class="bg-slate-50 p-3 rounded border border-slate-200 text-xs text-slate-700">
                 <strong>Mecanismo Legal de Cobrança:</strong> O pagamento será efetuado exclusivamente por Guia de Arrecadação USP ou via Fundação de Apoio oficial vinculada à Faculdade de Medicina da USP (Lei nº 8.958/1994). É vedado qualquer depósito em contas particulares.
               </div>
             </div>
 
             <!-- PARTE A.4: DECLARAÇÕES ÉTICAS NA ÁREA DE SAÚDE -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-3">
-              <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-3 flex items-center gap-2">
-                <span class="w-5 h-5 rounded-full bg-amber-600 text-white text-xs flex items-center justify-center font-sans">4</span>
+            <div class="bg-white p-5 rounded border border-slate-200 space-y-3">
+              <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide border-b border-slate-100 pb-2 flex items-center gap-2">
+                <span class="w-4 h-4 rounded-full bg-fmusp-green text-white text-[10px] flex items-center justify-center font-sans">4</span>
                 A.4 Salvaguarda Ética e Reputacional em Saúde Pública
               </h3>
               <div class="space-y-2 text-xs text-slate-700">
                 <label class="flex items-start gap-2 cursor-pointer">
-                  <input type="checkbox" id="com_et1" required onchange="checkComercialReady()" class="mt-0.5 rounded border-slate-300 text-amber-600" />
+                  <input type="checkbox" id="com_et1" required onchange="checkComercialReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green" />
                   <span>Declaro que o produto comercial não está direta ou indiretamente associado a tabaco, armamentos, drogas ilícitas ou exploração depreciativa de pacientes.</span>
                 </label>
                 <label class="flex items-start gap-2 cursor-pointer">
-                  <input type="checkbox" id="com_et2" required onchange="checkComercialReady()" class="mt-0.5 rounded border-slate-300 text-amber-600" />
+                  <input type="checkbox" id="com_et2" required onchange="checkComercialReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green" />
                   <span>Comprometo-me a não veicular alegações de saúde enganosas, terapias milagrosas sem chancela científica ou simular endosso institucional da FMUSP e do Museu a produtos particulares.</span>
                 </label>
               </div>
             </div>
 
             <!-- PARTE B: MINUTA JURÍDICA COMERCIAL -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs space-y-3">
+            <div class="bg-white p-5 rounded border border-slate-200 space-y-2">
               <div class="flex items-center justify-between">
-                <h3 class="text-sm font-bold text-slate-900 uppercase tracking-wide font-serif">
+                <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide">
                   PARTE B — Minuta do Termo de Licenciamento Comercial (Leitura Obrigatória)
                 </h3>
-                <span class="text-xs text-slate-400">Role para ler na íntegra</span>
+                <span class="text-[11px] text-slate-400">Role para ler na íntegra</span>
               </div>
-              <div class="legal-scroll-box bg-slate-50 border border-slate-200 rounded-lg p-4 text-xs leading-relaxed text-slate-700 font-serif space-y-3">
+              <div class="legal-scroll-box bg-slate-50 border border-slate-200 rounded p-3 text-xs leading-relaxed text-slate-700 font-serif space-y-2.5">
                 <p class="font-bold text-center uppercase tracking-wider text-slate-900">MUSEU HISTÓRICO "PROF. CARLOS DA SILVA LACAZ" — FMUSP<br/>TERMO DE AUTORIZAÇÃO E LICENCIAMENTO PARA USO COMERCIAL DE ACERVO</p>
                 <p><strong>CLÁUSULA 1 – OBJETO E OUTORGA:</strong> Licença onerosa, limitada e não exclusiva para aplicação das imagens e matrizes nos estritos limites do projeto deferido.</p>
                 <p><strong>CLÁUSULA 2 – NÃO EXCLUSIVIDADE E VEDAÇÃO À SUBLICENÇA:</strong> A presente outorga não possui exclusividade. É terminantemente proibido sublicenciar, ceder ou fracionar os arquivos recebidos a terceiros.</p>
@@ -1009,122 +757,355 @@
             </div>
 
             <!-- DECLARAÇÕES FINAIS -->
-            <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 space-y-3">
-              <h4 class="text-xs font-bold uppercase text-slate-800 tracking-wider mb-2">A.5 Declarações e Aceite da Proposta Vinculante</h4>
-              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
-                <input type="checkbox" id="com_c1" required onchange="checkComercialReady()" class="mt-0.5 rounded border-slate-300 text-amber-600 focus:ring-amber-600" />
+            <div class="bg-slate-50 p-5 rounded border border-slate-200 space-y-2.5">
+              <h4 class="text-xs font-bold uppercase text-slate-800 tracking-wider mb-1">A.5 Declarações e Aceite da Proposta Vinculante</h4>
+              <label class="flex items-start gap-2 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" id="com_c1" required onchange="checkComercialReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
                 <span>Declaro deter poderes bastantes de representação estatutária para vincular a empresa solicitante aos termos e obrigações financeiras deste instrumento.</span>
               </label>
-              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
-                <input type="checkbox" id="com_c2" required onchange="checkComercialReady()" class="mt-0.5 rounded border-slate-300 text-amber-600 focus:ring-amber-600" />
+              <label class="flex items-start gap-2 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" id="com_c2" required onchange="checkComercialReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
                 <span>Comprometo-me ao recolhimento tempestivo das taxas/royalties fixados exclusivamente por Guia da USP ou Fundação conveniada.</span>
               </label>
-              <label class="flex items-start gap-2.5 text-xs text-slate-700 cursor-pointer">
-                <input type="checkbox" id="com_c3" required onchange="checkComercialReady()" class="mt-0.5 rounded border-slate-300 text-amber-600 focus:ring-amber-600" />
+              <label class="flex items-start gap-2 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" id="com_c3" required onchange="checkComercialReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
                 <span>Declaro ter lido integralmente o Termo de Licenciamento Comercial e manifesto concordância vinculante irrevogável com todas as suas cláusulas.</span>
               </label>
             </div>
 
             <div class="text-center pt-2">
-              <button type="submit" id="btn-submit-comercial" disabled class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-slate-400 text-white font-bold text-sm shadow-md transition disabled:cursor-not-allowed">
+              <button type="submit" id="btn-submit-comercial" disabled class="w-full sm:w-auto px-6 py-2.5 rounded bg-slate-400 text-white font-semibold text-xs uppercase tracking-wider transition disabled:cursor-not-allowed">
                 Concordo e Envio a Proposta Vinculante
               </button>
             </div>
           </form>
-        </div>
+        </section>
 
         <!-- ============================================================= -->
-        <!-- 5. ABA: PAINEL CURATORIAL & AUDITORIA DE PROTOCOLOS (DEMO) -->
+        <!-- ABA 6: DOAÇÃO DE ACERVO (FORMULÁRIO DE DOAÇÃO)                -->
         <!-- ============================================================= -->
-        <div id="tab-admin" class="tab-content hidden space-y-6">
+        <section id="tab-doacao" class="tab-pane hidden space-y-6">
           
-          <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div class="border-b border-slate-200 pb-3 flex items-center justify-between">
             <div>
-              <span class="text-xs font-bold uppercase text-amber-700 tracking-wider">Módulo de Gestão &amp; Curadoria</span>
-              <h2 class="text-xl font-bold text-slate-900 font-serif">Painel de Triagem Técnica e Trilha de Auditoria</h2>
-              <p class="text-xs text-slate-500">Monitoramento em tempo real de protocolos submetidos, integridade de hashes e deliberações de tombamento.</p>
+              <span class="text-[11px] uppercase tracking-wider text-fmusp-green font-semibold">Módulo I — Salvaguarda e Entrada de Acervo</span>
+              <h2 class="text-xl font-normal text-fmusp-green">Termo de Doação de Acervo Cultural</h2>
+              <p class="text-xs text-slate-500 mt-0.5">Transfere a posse material e propriedade definitiva ao MHFMUSP/CPDoc em regime 100% digital.</p>
+            </div>
+            <button onclick="switchTab('home')" class="text-xs text-slate-500 hover:text-fmusp-green">&larr; Voltar ao Início</button>
+          </div>
+
+          <!-- FORMULÁRIO DE DOAÇÃO -->
+          <form id="form-doacao" onsubmit="handleDoacaoSubmit(event)" class="space-y-6">
+            
+            <!-- PARTE A.1: IDENTIFICAÇÃO DO DOADOR -->
+            <div class="bg-white p-5 rounded border border-slate-200 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide flex items-center gap-2">
+                  <span class="w-4 h-4 rounded-full bg-fmusp-green text-white text-[10px] flex items-center justify-center font-sans">1</span>
+                  A.1 Identificação do Doador / Proponente
+                </h3>
+                <span class="text-[11px] text-red-500 font-medium">* Campos Obrigatórios</span>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Tipo de Doador *</label>
+                  <select id="doa_tipo_doador" required class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none">
+                    <option value="Pessoa Física">Pessoa Física</option>
+                    <option value="Pessoa Jurídica">Pessoa Jurídica</option>
+                    <option value="Espólio (Herdeiros e Sucessores)">Espólio (Herdeiros e Sucessores)</option>
+                    <option value="Instituição Pública ou Privada">Instituição Pública ou Privada</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Nome Completo ou Razão Social *</label>
+                  <input type="text" id="doa_nome" required placeholder="Ex.: Dr. Roberto Santos Silva" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">CPF ou CNPJ *</label>
+                  <input type="text" id="doa_documento" required placeholder="000.000.000-00" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Grau de Relação com o Bem *</label>
+                  <select id="doa_relacao" required class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none">
+                    <option value="Proprietário original">Proprietário original</option>
+                    <option value="Herdeiro-sucessor">Herdeiro-sucessor</option>
+                    <option value="Adquirente de terceiro">Adquirente de terceiro</option>
+                    <option value="Representante institucional">Representante institucional</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">E-mail para Confirmação *</label>
+                  <input type="email" id="doa_email" required placeholder="doador@exemplo.com.br" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Telefone de Contato (com DDD) *</label>
+                  <input type="tel" id="doa_telefone" required placeholder="(11) 99999-9999" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block font-semibold text-slate-700 mb-1">Endereço Completo (Logradouro, Nº, Bairro, Cidade/UF, CEP) *</label>
+                  <input type="text" id="doa_endereco" required placeholder="Av. Paulista, 1000, Apto 50, Bela Vista, São Paulo/SP, CEP 01310-100" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block font-semibold text-slate-700 mb-1">Upload de Documento de Identificação Oficial (PDF/JPG/PNG máx. 10MB) *</label>
+                  <input type="file" id="doa_file_id" required class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200" />
+                </div>
+              </div>
+            </div>
+
+            <!-- PARTE A.2: CARACTERIZAÇÃO DO BEM CULTURAL -->
+            <div class="bg-white p-5 rounded border border-slate-200 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide flex items-center gap-2">
+                  <span class="w-4 h-4 rounded-full bg-fmusp-green text-white text-[10px] flex items-center justify-center font-sans">2</span>
+                  A.2 Descrição do Bem Cultural Doado
+                </h3>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Denominação do Bem (Nome Técnico ou Popular) *</label>
+                  <input type="text" id="doa_denominacao" required placeholder="Ex.: Caixa de Instrumental Cirúrgico de Campo" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Quantidade de Peças/Itens *</label>
+                  <input type="number" id="doa_quantidade" min="1" value="1" required class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Datação Estimada (Ex.: 1932 ou Década de 1940) *</label>
+                  <input type="text" id="doa_datacao" required placeholder="Ex.: Século XX (c. 1930)" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none" />
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Estado de Conservação Declarado *</label>
+                  <select id="doa_estado" required class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none">
+                    <option value="Bom">Bom (íntegro e estável)</option>
+                    <option value="Regular">Regular (com desgastes naturais pelo tempo)</option>
+                    <option value="Requer intervenção urgente">Requer intervenção urgente de conservação-restauro</option>
+                  </select>
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block font-semibold text-slate-700 mb-1">Descrição Física Detalhada (Dimensões AxLxP cm, peso, marcas de fabricante) *</label>
+                  <textarea id="doa_descricao_fisica" rows="3" required placeholder="Descreva material constitutivo (ex.: aço niquelado, madeira nobre, vidro soprado), numeração de série e marcas..." class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none"></textarea>
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block font-semibold text-slate-700 mb-1">Registro Fotográfico Mínimo (Mínimo 3 imagens: frontal, posterior, detalhes) *</label>
+                  <input type="file" multiple required class="w-full text-xs text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200" />
+                </div>
+
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Apresenta Risco Biológico, Químico ou Perfurocortante? *</label>
+                  <select id="doa_risco_bio" class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:border-fmusp-green focus:outline-none">
+                    <option value="Não">Não</option>
+                    <option value="Sim">Sim (exige descrição de descontaminação)</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block font-semibold text-slate-700 mb-1">Contém Material Biológico Humano ou Dados de Pacientes? *</label>
+                  <select id="doa_has_humano" onchange="toggleHumanoBlock(this.value)" class="w-full border border-slate-300 rounded p-2 text-xs bg-amber-50/70 text-amber-900 font-medium focus:border-amber-600 focus:outline-none">
+                    <option value="Não">Não</option>
+                    <option value="Sim">Sim (ativa bloco condicional de bioética e LGPD)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- BLOCO CONDICIONAL MATERIAL HUMANO / LGPD -->
+            <div id="bloco-condicional-humano" class="hidden bg-amber-50/60 border border-amber-300 p-5 rounded space-y-3">
+              <div class="border-b border-amber-200 pb-2">
+                <h4 class="text-xs font-bold text-amber-900 uppercase flex items-center gap-1.5">
+                  <svg class="w-4 h-4 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                  A.4 Bloco Condicional — Material Biológico Humano e Dados Pessoais Sensíveis
+                </h4>
+                <p class="text-[11px] text-amber-800 mt-0.5">Obrigatório em conformidade com as resoluções do CEP/CONEP e os artigos 7º, IV e 11, II, "c" da Lei nº 13.709/2018 (LGPD).</p>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                <div>
+                  <label class="block font-semibold text-amber-900 mb-1">Consentimento Original do Paciente/Família</label>
+                  <select class="w-full border border-amber-300 rounded p-2 text-xs bg-white">
+                    <option value="NaoSeAplica">Não se aplica por antiguidade histórica consolidada</option>
+                    <option value="Sim">Sim (anexar documento comprobatório)</option>
+                    <option value="Nao">Não localizado nos arquivos de origem</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block font-semibold text-amber-900 mb-1">Anonimização Prévia Realizada?</label>
+                  <select class="w-full border border-amber-300 rounded p-2 text-xs bg-white">
+                    <option value="Sim">Sim (dados nominais tarjados/descaracterizados)</option>
+                    <option value="Nao">Não (necessitará de tratamento curatorial pelo Museu)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- PARTE A.3: PROVENIÊNCIA E HISTÓRICO -->
+            <div class="bg-white p-5 rounded border border-slate-200 space-y-4">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+                <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide flex items-center gap-2">
+                  <span class="w-4 h-4 rounded-full bg-fmusp-green text-white text-[10px] flex items-center justify-center font-sans">3</span>
+                  A.3 Histórico de Proveniência e Cadeia de Custódia
+                </h3>
+              </div>
+              <div class="text-xs">
+                <label class="block font-semibold text-slate-700 mb-1">Relato de Origem (Como o item entrou na posse do doador?) *</label>
+                <textarea id="doa_origem" rows="3" required placeholder="Relatar cronologicamente hospitais, clínicas, famílias ou professores que detiveram o objeto..." class="w-full border border-slate-300 rounded p-2 text-xs bg-slate-50/50 focus:bg-white focus:border-fmusp-green focus:outline-none"></textarea>
+              </div>
+              <div class="flex items-center gap-2 text-xs">
+                <input type="checkbox" id="doa_check_origem" required class="rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green w-3.5 h-3.5" />
+                <label for="doa_check_origem" class="text-slate-700 font-medium">Declaro sob as penas da lei que o bem tem origem estritamente lícita e não é objeto de litígio.</label>
+              </div>
+            </div>
+
+            <!-- PARTE B: MINUTA JURÍDICA COMPLETA -->
+            <div class="bg-white p-5 rounded border border-slate-200 space-y-2">
+              <div class="flex items-center justify-between">
+                <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide">
+                  PARTE B — Minuta Completa do Termo de Doação (Leitura Obrigatória)
+                </h3>
+                <span class="text-[11px] text-slate-400">Role para ler na íntegra</span>
+              </div>
+              <div class="legal-scroll-box bg-slate-50 border border-slate-200 rounded p-3 text-xs leading-relaxed text-slate-700 font-serif space-y-2.5">
+                <p class="font-bold text-center uppercase tracking-wider text-slate-900">MUSEU HISTÓRICO "PROF. CARLOS DA SILVA LACAZ" — FMUSP<br/>TERMO DE DOAÇÃO DE ACERVO CULTURAL</p>
+                <p><strong>Pelo presente instrumento nativamente digital:</strong> De um lado o(a) <strong>DOADOR(A)</strong> qualificado na Parte A; e de outro lado o <strong>MUSEU HISTÓRICO "PROF. CARLOS DA SILVA LACAZ" DA FACULDADE DE MEDICINA DA UNIVERSIDADE DE SÃO PAULO</strong>, unidade integrante da estrutura da USP — autarquia estadual de regime especial inscrita no CNPJ/MF nº 63.025.530/0001-04, com sede em São Paulo/SP, sujeita ao Estatuto de Museus (Lei nº 11.904/2009) e ao Decreto nº 8.124/2013, pactuam:</p>
+                <p><strong>CLÁUSULA 1 – DO OBJETO:</strong> Doação pura, simples, irrevogável e definitiva do(s) bem(ns) cultural(is) discriminado(s), com transferência integral de posse física e propriedade dominial ao Museu.</p>
+                <p><strong>CLÁUSULA 2 – DA PROVENIÊNCIA:</strong> O Doador declara, sob as penas do art. 299 do Código Penal, ser legítimo proprietário ou possuidor com poderes bastantes, livre de ônus ou reivindicações de terceiros.</p>
+                <p><strong>CLÁUSULA 3 – DA INCORPORAÇÃO E TOMBAMENTO:</strong> O acolhimento definitivo submete-se à triagem técnica da Curadoria e homologação formal pelos colegiados competentes da Faculdade de Medicina da USP (Comissão de Orçamento e Patrimônio / Congregação), conforme o Regimento Geral da USP, convertendo-se em patrimônio público inalienável tombado.</p>
+                <p><strong>CLÁUSULA 4 – DA SALVAGUARDA E GESTÃO:</strong> Cabe exclusivamente ao Museu estabelecer diretrizes de guarda, restauro, reserva técnica, circulação e expografia.</p>
+                <p><strong>CLÁUSULA 5 – DIREITOS AUTORAIS E PATRIMONIAIS:</strong> A doação abrange o suporte material. Direitos intelectuais continuam sob a Lei nº 9.610/1998, autorizando-se a reprodução fotográfica e difusão científica institucional.</p>
+                <p><strong>CLÁUSULA 6 – DESINCORPORAÇÃO EXTRAORDINÁRIA:</strong> Havendo perda física irreversível do valor documental ou risco biológico grave, poderá ser deliberado o descarte museológico nos termos do Estatuto de Museus.</p>
+                <p><strong>CLÁUSULA 7 – DADOS PESSOAIS E LGPD:</strong> Tratamento em estrita conformidade com a Lei nº 13.709/2018 e Portaria GR nº 7.674/2021 da USP, com anonimização mandatória de laudos clínicos.</p>
+                <p><strong>CLÁUSULA 8 – GRATUIDADE:</strong> A doação é gratuita e irrevogável, não gerando quaisquer direitos indenizatórios.</p>
+                <p><strong>CLÁUSULA 9 – VALIDADE DIGITAL E FORO:</strong> Plena eficácia pela MP nº 2.200-2/2001. Eleito com exclusividade o Foro das Varas da Fazenda Pública da Capital do Estado de São Paulo.</p>
+              </div>
+            </div>
+
+            <!-- PARTE A.6: DECLARAÇÕES DE ACEITE -->
+            <div class="bg-slate-50 p-5 rounded border border-slate-200 space-y-2.5">
+              <h4 class="text-xs font-bold uppercase text-slate-800 tracking-wider mb-1">A.6 Declarações e Aceite Eletrônico Vinculante</h4>
+              <label class="flex items-start gap-2 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" id="doa_c1" required onchange="checkDoacaoReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
+                <span>Declaro sob as penas da lei que sou legítimo titular do bem cultural doado, estando o mesmo livre e desembaraçado de litígios de terceiros ou herdeiros.</span>
+              </label>
+              <label class="flex items-start gap-2 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" id="doa_c2" required onchange="checkDoacaoReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
+                <span>Declaro plena ciência de que a doação é pura, gratuita e irrevogável, transferindo em definitivo a propriedade material à Faculdade de Medicina da USP.</span>
+              </label>
+              <label class="flex items-start gap-2 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" id="doa_c3" required onchange="checkDoacaoReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
+                <span>Autorizo o tratamento dos dados fornecidos nos termos da LGPD e Portaria GR nº 7.674/2021 para registro e salvaguarda do patrimônio público.</span>
+              </label>
+              <label class="flex items-start gap-2 text-xs text-slate-700 cursor-pointer">
+                <input type="checkbox" id="doa_c4" required onchange="checkDoacaoReady()" class="mt-0.5 rounded border-slate-300 text-fmusp-green focus:ring-fmusp-green" />
+                <span>Declaro ter lido integralmente o Termo de Doação na caixa acima e concordo irrestritamente com todas as suas cláusulas e condições jurídicas.</span>
+              </label>
+            </div>
+
+            <div class="text-center pt-2">
+              <button type="submit" id="btn-submit-doacao" disabled class="w-full sm:w-auto px-6 py-2.5 rounded bg-slate-400 text-white font-semibold text-xs uppercase tracking-wider transition disabled:cursor-not-allowed">
+                Concordo e Assino Digitalmente a Doação
+              </button>
+              <p class="text-[11px] text-slate-500 mt-2">
+                Ao clicar, o sistema capturará automaticamente Timestamp UTC-3, IP do terminal e Hash Criptográfico SHA-256 inalterável.
+              </p>
+            </div>
+
+          </form>
+        </section>
+
+        <!-- ============================================================= -->
+        <!-- ABA 7: PAINEL CURATORIAL (AUDITORIA E PROTOCOLOS DEMO)         -->
+        <!-- ============================================================= -->
+        <section id="tab-admin" class="tab-pane hidden space-y-6">
+          <div class="border-b border-slate-200 pb-3 flex items-center justify-between">
+            <div>
+              <span class="text-[11px] uppercase tracking-wider text-fmusp-green font-semibold">Módulo de Gestão & Curadoria</span>
+              <h2 class="text-xl font-normal text-fmusp-green">Painel de Triagem Técnica e Trilha de Auditoria</h2>
             </div>
             <div class="flex items-center gap-2">
-              <button onclick="carregarExemplos()" class="px-3 py-1.5 rounded-lg border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-100 transition">
-                Carregar Dados de Exemplo
+              <button onclick="carregarExemplos()" class="px-2.5 py-1 rounded border border-slate-300 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 transition">
+                Carregar Exemplos
               </button>
-              <button onclick="abrirModalLimpar()" class="px-3 py-1.5 rounded-lg border border-red-200 text-xs font-semibold text-red-600 hover:bg-red-50 transition">
-                Limpar Registros
+              <button onclick="abrirModalLimpar()" class="px-2.5 py-1 rounded border border-red-200 text-[11px] font-semibold text-red-600 hover:bg-red-50 transition">
+                Limpar
               </button>
             </div>
           </div>
 
-          <!-- TABELA DE PROTOCOLOS -->
-          <div class="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+          <div class="bg-white rounded border border-slate-200 overflow-hidden text-xs">
             <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs text-slate-600">
-                <thead class="bg-slate-100 text-slate-700 uppercase font-semibold border-b border-slate-200">
+              <table class="w-full text-left text-slate-600">
+                <thead class="bg-slate-100 text-slate-700 uppercase font-semibold border-b border-slate-200 text-[11px]">
                   <tr>
-                    <th class="py-3 px-4">Protocolo</th>
-                    <th class="py-3 px-4">Tipo / Módulo</th>
-                    <th class="py-3 px-4">Solicitante</th>
-                    <th class="py-3 px-4">Timestamp (UTC-3)</th>
-                    <th class="py-3 px-4">Hash SHA-256</th>
-                    <th class="py-3 px-4">Status</th>
-                    <th class="py-3 px-4 text-center">Ações</th>
+                    <th class="py-2.5 px-3">Protocolo</th>
+                    <th class="py-2.5 px-3">Tipo / Módulo</th>
+                    <th class="py-2.5 px-3">Solicitante</th>
+                    <th class="py-2.5 px-3">Data</th>
+                    <th class="py-2.5 px-3">Hash SHA-256</th>
+                    <th class="py-2.5 px-3">Status</th>
+                    <th class="py-2.5 px-3 text-center">Ações</th>
                   </tr>
                 </thead>
-                <tbody id="admin-table-body" class="divide-y divide-slate-100 font-sans">
-                  <!-- Preenchido via JavaScript -->
+                <tbody id="admin-table-body" class="divide-y divide-slate-100">
+                  <!-- Preenchido dinamicamente via JavaScript -->
                 </tbody>
               </table>
             </div>
-            <div id="admin-empty-state" class="py-12 text-center text-slate-400 text-xs">
-              Nenhuma solicitação gravada nesta sessão. Preencha um dos formulários acima ou clique em "Carregar Dados de Exemplo".
+            <div id="admin-empty-state" class="py-8 text-center text-slate-400 text-xs">
+              Nenhuma solicitação gravada nesta sessão. Preencha um dos formulários do CPDoc ou clique em "Carregar Exemplos".
             </div>
           </div>
+        </section>
 
-        </div>
-
-      </section>
+      </main>
 
     </div>
-  </main>
+  </div>
 
-  <!-- BARRA FLUTUANTE DE REDES SOCIAIS E ACESSIBILIDADE (Fiel à Lateral Direita da Home) -->
-  <aside aria-label="Redes Sociais Institucionais" class="fixed right-0 top-1/3 -translate-y-1/2 z-40 hidden sm:flex flex-col shadow-lg border-l border-t border-b border-slate-700/20">
-    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-[#3b5998] hover:bg-[#2d4373] text-white flex items-center justify-center transition" title="Facebook FMUSP">
-      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
+  <!-- ================================================================= -->
+  <!-- BARRA FLUTUANTE LATERAL DE REDES SOCIAIS (EXATA AO PRINT DA HOME) -->
+  <!-- ================================================================= -->
+  <aside aria-label="Redes Sociais Oficiais" class="fixed right-0 top-1/2 -translate-y-1/2 z-40 hidden sm:flex flex-col shadow-md">
+    <!-- Facebook -->
+    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="w-8 h-8 bg-[#3b5998] hover:bg-[#2d4373] text-white flex items-center justify-center transition" title="Facebook FMUSP">
+      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
     </a>
-    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-[#1da1f2] hover:bg-[#0c85d0] text-white flex items-center justify-center transition" title="Twitter FMUSP">
-      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+    <!-- Twitter -->
+    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="w-8 h-8 bg-[#55acee] hover:bg-[#2795e9] text-white flex items-center justify-center transition" title="Twitter FMUSP">
+      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
     </a>
-    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-[#e1306c] hover:bg-[#c1275b] text-white flex items-center justify-center transition" title="Instagram FMUSP">
-      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    <!-- Instagram -->
+    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="w-8 h-8 bg-[#3f729b] hover:bg-[#2c5270] text-white flex items-center justify-center transition" title="Instagram FMUSP">
+      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
     </a>
-    <a href="#" class="w-9 h-9 bg-[#2980b9] hover:bg-[#1f618d] text-white flex items-center justify-center transition" title="Acessibilidade em Libras (VLibras)">
-      <span class="text-[10px] font-bold tracking-tighter">LIBRAS</span>
+    <!-- YouTube -->
+    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="w-8 h-8 bg-[#cd201f] hover:bg-[#a81a19] text-white flex items-center justify-center transition" title="YouTube FMUSP">
+      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
     </a>
-    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="w-9 h-9 bg-[#cd201f] hover:bg-[#a81a19] text-white flex items-center justify-center transition" title="YouTube FMUSP">
-      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+    <!-- VLibras -->
+    <a href="javascript:void(0)" class="w-8 h-8 bg-[#337ab7] hover:bg-[#286090] text-white flex items-center justify-center transition" title="Acessibilidade em Libras">
+      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
     </a>
   </aside>
 
   <!-- ============================================================= -->
-  <!-- MODAL DE COMPROVANTE ELETRÔNICO / PDF DE RECIBO OFICIAL -->
+  <!-- MODAL DE COMPROVANTE ELETRÔNICO / PDF DE RECIBO OFICIAL       -->
   <!-- ============================================================= -->
-  <div id="modal-receipt" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-slate-200 flex flex-col justify-between">
+  <div id="modal-receipt" class="fixed inset-0 bg-black/60 backdrop-blur-2xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl border border-slate-300 flex flex-col justify-between">
       
-      <!-- RECIBO PRINTABLE -->
-      <div class="space-y-6">
+      <div class="space-y-4">
         <!-- HEADER INSTITUCIONAL DO RECIBO -->
-        <div class="border-b border-slate-300 pb-4 text-center">
-          <p class="text-xs uppercase tracking-widest text-slate-500 font-semibold">Universidade de São Paulo | Faculdade de Medicina</p>
-          <h3 class="text-lg font-bold text-fmusp-green font-serif">Museu Histórico "Prof. Carlos da Silva Lacaz" — CPDoc</h3>
-          <p class="text-xs font-medium text-slate-600 mt-1" id="recibo-titulo-modulo">Comprovante de Aceite e Protocolo Eletrônico</p>
+        <div class="border-b border-slate-300 pb-3 text-center">
+          <p class="text-[10px] uppercase tracking-widest text-slate-500 font-semibold">Universidade de São Paulo | Faculdade de Medicina</p>
+          <h3 class="text-base font-bold text-fmusp-green font-serif">Museu Histórico "Prof. Carlos da Silva Lacaz" — CPDoc</h3>
+          <p class="text-xs font-medium text-slate-600 mt-0.5" id="recibo-titulo-modulo">Comprovante de Aceite e Protocolo Eletrônico</p>
         </div>
 
         <!-- DADOS DA TRANSAÇÃO -->
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs space-y-2">
-          <div class="flex justify-between border-b pb-1">
+        <div class="bg-slate-50 p-3.5 rounded border border-slate-200 text-xs space-y-1.5">
+          <div class="flex justify-between border-b border-slate-200 pb-1">
             <span class="text-slate-500">Número de Protocolo:</span>
-            <span class="font-mono font-bold text-fmusp-green text-sm" id="recibo-protocolo">MHFM-DOA-2026-00001</span>
+            <span class="font-mono font-bold text-fmusp-green" id="recibo-protocolo">MHFM-DOA-2026-00001</span>
           </div>
           <div class="flex justify-between">
             <span class="text-slate-500">Solicitante / Doador:</span>
@@ -1141,112 +1122,134 @@
         </div>
 
         <!-- METADADOS DE AUDITORIA CRIPTOGRÁFICA -->
-        <div class="border border-emerald-200 bg-emerald-50/60 p-4 rounded-xl text-xs space-y-1.5 text-emerald-900">
-          <div class="flex items-center gap-1.5 font-bold text-emerald-800 mb-1">
-            <svg class="w-4 h-4 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-            Assinatura Eletrônica &amp; Eficácia Probatória (MP nº 2.200-2/2001)
+        <div class="border border-emerald-200 bg-emerald-50/50 p-3 rounded text-[11px] space-y-1 text-emerald-900">
+          <div class="flex items-center gap-1 font-bold text-emerald-800 mb-0.5">
+            <svg class="w-3.5 h-3.5 text-emerald-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+            Assinatura Eletrônica & Eficácia Probatória (MP nº 2.200-2/2001)
           </div>
-          <p><span class="font-semibold">Timestamp UTC-3:</span> <span id="recibo-timestamp">2026-09-22T12:00:00-03:00</span></p>
+          <p><span class="font-semibold">Timestamp UTC-3:</span> <span id="recibo-timestamp">2026-09-22T15:30:00-03:00</span></p>
           <p><span class="font-semibold">IP Registrado:</span> <span id="recibo-ip">143.107.0.1 (Rede USP / Simulado)</span></p>
-          <p><span class="font-semibold">Navegador/User-Agent:</span> <span class="truncate block text-[10px] text-emerald-700 font-mono" id="recibo-useragent">Mozilla/5.0 ...</span></p>
-          <div class="pt-2 border-t border-emerald-200">
-            <span class="block font-semibold text-[11px] mb-0.5">Hash Criptográfico SHA-256 do Acordo:</span>
-            <span class="font-mono text-[10px] break-all bg-white p-1.5 rounded border border-emerald-200 block text-emerald-950 select-all" id="recibo-hash">
+          <p><span class="font-semibold">Navegador:</span> <span class="truncate block text-[10px] text-emerald-800 font-mono" id="recibo-useragent">Mozilla/5.0 ...</span></p>
+          <div class="pt-1.5 border-t border-emerald-200/80">
+            <span class="block font-semibold text-[10px] mb-0.5">Hash Criptográfico SHA-256 do Acordo:</span>
+            <span class="font-mono text-[9px] break-all bg-white p-1 rounded border border-emerald-200 block text-emerald-950 select-all" id="recibo-hash">
               e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
             </span>
           </div>
         </div>
 
-        <p class="text-[10px] text-slate-400 text-center leading-tight">
-          Documento gerado eletronicamente pelo Sistema de Gestão Museológica do MHFMUSP/CPDoc. A validade deste recibo pode ser verificada perante a Curadoria do Museu mediante apresentação do número do protocolo e hash SHA-256.
+        <p class="text-[9px] text-slate-400 text-center leading-tight">
+          Documento gerado eletronicamente pelo Sistema de Gestão do MHFMUSP/CPDoc. A autenticidade pode ser atestada perante a Curadoria do Museu mediante apresentação do número do protocolo e hash SHA-256.
         </p>
       </div>
 
-      <!-- ACTIONS NO-PRINT -->
-      <div class="mt-6 pt-4 border-t border-slate-200 flex flex-wrap justify-end gap-2 no-print">
-        <button onclick="window.print()" class="px-4 py-2 rounded-lg bg-slate-100 text-slate-700 text-xs font-semibold hover:bg-slate-200 border border-slate-300 transition flex items-center gap-1.5">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-          Imprimir / Salvar PDF
+      <!-- BOTÕES DE AÇÃO -->
+      <div class="mt-5 pt-3 border-t border-slate-200 flex justify-end gap-2 no-print">
+        <button onclick="window.print()" class="px-3 py-1.5 rounded bg-slate-100 text-slate-700 text-xs font-semibold hover:bg-slate-200 border border-slate-300 transition flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          Imprimir Recibo
         </button>
-        <button onclick="fecharModalRecibo()" class="px-5 py-2 rounded-lg bg-fmusp-green text-white text-xs font-semibold hover:bg-fmusp-darkgreen transition">
-          Concluir e Fechar
+        <button onclick="fecharModalRecibo()" class="px-4 py-1.5 rounded bg-fmusp-green text-white text-xs font-semibold hover:bg-fmusp-darkgreen transition">
+          Fechar
         </button>
       </div>
 
     </div>
   </div>
 
-  <!-- MODAL DE CONFIRMAÇÃO PARA LIMPEZA DE REGISTROS (Substitui confirm() nativo) -->
-  <div id="modal-confirm-limpar" class="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-xl border border-slate-200 space-y-4">
-      <div class="flex items-center gap-3 text-red-600">
-        <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-        </div>
-        <div>
-          <h4 class="text-base font-bold text-slate-900">Limpar Registros Locais?</h4>
-          <p class="text-xs text-slate-500">Essa operação apagará todos os protocolos salvos na memória do seu navegador.</p>
-        </div>
+  <!-- MODAL DE CONFIRMAÇÃO PARA LIMPAR REGISTROS -->
+  <div id="modal-confirm-limpar" class="fixed inset-0 bg-black/60 backdrop-blur-2xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded max-w-sm w-full p-5 shadow-xl border border-slate-200 space-y-3">
+      <div class="flex items-center gap-2.5 text-red-600">
+        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        <h4 class="text-sm font-bold text-slate-900">Limpar Registros Locais?</h4>
       </div>
       <p class="text-xs text-slate-600">
-        Esta ação não pode ser desfeita. Você pode restaurar exemplos a qualquer momento clicando em "Carregar Dados de Exemplo".
+        Esta ação apagará todos os protocolos gravados na sessão deste navegador.
       </p>
-      <div class="flex justify-end gap-2 pt-2">
-        <button onclick="fecharModalLimpar()" class="px-4 py-2 rounded-lg border border-slate-300 text-xs font-semibold text-slate-700 hover:bg-slate-100 transition">
+      <div class="flex justify-end gap-2 pt-1">
+        <button onclick="fecharModalLimpar()" class="px-3 py-1 rounded border border-slate-300 text-xs font-medium text-slate-700 hover:bg-slate-100 transition">
           Cancelar
         </button>
-        <button onclick="confirmarLimparStorage()" class="px-4 py-2 rounded-lg bg-red-600 text-white text-xs font-semibold hover:bg-red-700 transition">
-          Sim, Limpar Registros
+        <button onclick="confirmarLimparStorage()" class="px-3 py-1 rounded bg-red-600 text-white text-xs font-medium hover:bg-red-700 transition">
+          Confirmar
         </button>
       </div>
     </div>
   </div>
 
-  <!-- FOOTER INSTITUCIONAL (Idêntico ao padrão oficial da FMUSP) -->
-  <footer class="bg-slate-900 text-slate-400 text-xs py-10 border-t border-slate-800 mt-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-      <div class="text-center md:text-left space-y-1">
-        <p class="font-bold text-white text-sm font-serif">Museu Histórico "Prof. Carlos da Silva Lacaz" — MHFMUSP / CPDoc</p>
-        <p class="text-slate-400">Av. Dr. Arnaldo, 455 — Cerqueira César, São Paulo/SP — CEP 01246-903</p>
-        <p class="text-slate-500 text-[11px]">Faculdade de Medicina da Universidade de São Paulo (FMUSP) • CNPJ 63.025.530/0001-04</p>
+  <!-- ================================================================= -->
+  <!-- RODAPÉ INSTITUCIONAL (PADRÃO OFICIAL FMUSP)                       -->
+  <!-- ================================================================= -->
+  <footer class="bg-white border-t border-slate-200 text-xs text-slate-500 py-6 mt-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row justify-between items-center gap-3 text-center md:text-left">
+      <div>
+        <p class="font-semibold text-slate-700">Museu Histórico "Prof. Carlos da Silva Lacaz" — FMUSP / CPDoc</p>
+        <p class="text-[11px]">Avenida Dr. Arnaldo, 455 — Cerqueira César, São Paulo/SP — CEP 01246-903</p>
       </div>
-      <div class="text-center md:text-right text-[11px] text-slate-500 space-y-1">
-        <p>Desenvolvido sob padrões DCMI, Darwin Core e Tainacan Core</p>
-        <p>Segurança da Informação e Privacidade: Portaria GR nº 7.674/2021 USP</p>
-        <p class="text-slate-600">Universidade de São Paulo — Excelência Pública em Ensino, Pesquisa e Salvaguarda Cultural</p>
+      <div class="text-[11px] md:text-right text-slate-400">
+        <p>Faculdade de Medicina da Universidade de São Paulo</p>
+        <p>CNPJ 63.025.530/0001-04 • Portaria GR nº 7.674/2021 USP</p>
       </div>
     </div>
   </footer>
 
-  <!-- ============================================================= -->
-  <!-- JAVASCRIPT LOGIC: NAVEGAÇÃO, VALIDAÇÃO, CRIPTOGRAFIA & STORE -->
-  <!-- ============================================================= -->
+  <!-- ================================================================= -->
+  <!-- JAVASCRIPT: NAVEGAÇÃO, ACCORDION DO CPDOC, FORMULÁRIOS & CRYPTO   -->
+  <!-- ================================================================= -->
   <script>
-    // ESTADO LOCAL DE PROTOCOLOS (Persistência no localStorage)
+    // ESTADO LOCAL DE PROTOCOLOS
     let registros = JSON.parse(localStorage.getItem('mhfm_registros') || '[]');
 
-    // FUNÇÃO PARA TROCA DE ABAS
+    // CONTROLE DE EXPANSÃO DO MENU "CENTRO DE DOCUMENTAÇÃO E PESQUISA"
+    let cpdocMenuOpen = true;
+    function toggleCpdocMenu() {
+      const sub = document.getElementById('sub-cpdoc');
+      const arrow = document.getElementById('arrow-cpdoc');
+      cpdocMenuOpen = !cpdocMenuOpen;
+      
+      if (cpdocMenuOpen) {
+        sub.classList.remove('hidden');
+        arrow.classList.add('rotate-180');
+      } else {
+        sub.classList.add('hidden');
+        arrow.classList.remove('rotate-180');
+      }
+    }
+
+    // ALTERNAR ABAS E PÁGINAS SEM RECARREGAR
     function switchTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.classList.remove('bg-fmusp-green', 'text-white', 'font-semibold', 'shadow-xs');
-        btn.classList.add('text-slate-700');
+      // Oculta todas as panes
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+      
+      // Reseta destaque do submenu
+      document.querySelectorAll('.sub-menu-item').forEach(item => {
+        item.classList.remove('font-bold', 'text-fmusp-green');
       });
 
-      const selectedContent = document.getElementById('tab-' + tabId);
-      const selectedNav = document.getElementById('nav-' + tabId);
+      // Exibe pane selecionada
+      const targetPane = document.getElementById('tab-' + tabId);
+      if (targetPane) {
+        targetPane.classList.remove('hidden');
+      }
 
-      if (selectedContent) selectedContent.classList.remove('hidden');
-      if (selectedNav && tabId !== 'admin') {
-        selectedNav.classList.add('bg-fmusp-green', 'text-white', 'font-semibold', 'shadow-xs');
-        selectedNav.classList.remove('text-slate-700');
+      // Se for um item do CPDoc, destaca o link correspondente
+      if (tabId === 'sobre-acervo') document.getElementById('menu-link-sobre')?.classList.add('font-bold', 'text-fmusp-green');
+      if (tabId === 'guia-acervo') document.getElementById('menu-link-guia')?.classList.add('font-bold', 'text-fmusp-green');
+      if (tabId === 'pesquisa') document.getElementById('menu-link-pesquisa')?.classList.add('font-bold', 'text-fmusp-green');
+      if (tabId === 'comercial') document.getElementById('menu-link-comercial')?.classList.add('font-bold', 'text-fmusp-green');
+      if (tabId === 'doacao') document.getElementById('menu-link-doacao')?.classList.add('font-bold', 'text-fmusp-green');
+
+      // Garante que o menu do CPDoc esteja aberto ao selecionar um formulário ou item dele
+      if (['sobre-acervo', 'guia-acervo', 'pesquisa', 'comercial', 'doacao'].includes(tabId)) {
+        if (!cpdocMenuOpen) toggleCpdocMenu();
       }
 
       if (tabId === 'admin') renderAdminTable();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // TOGGLE DO BLOCO CONDICIONAL DE BIOÉTICA / MATERIAL HUMANO
+    // TOGGLE DO BLOCO CONDICIONAL DE MATERIAL HUMANO / LGPD
     function toggleHumanoBlock(valor) {
       const bloco = document.getElementById('bloco-condicional-humano');
       if (valor === 'Sim') {
@@ -1256,7 +1259,46 @@
       }
     }
 
-    // CHECKBOX GATING: DOAÇÃO
+    // GATING DOS CHECKBOXES DE PESQUISA (Acesso e Reprodução)
+    function checkPesquisaReady() {
+      const c1 = document.getElementById('pesq_c1').checked;
+      const c2 = document.getElementById('pesq_c2').checked;
+      const c3 = document.getElementById('pesq_c3').checked;
+      const c4 = document.getElementById('pesq_c4').checked;
+      const btn = document.getElementById('btn-submit-pesquisa');
+
+      if (c1 && c2 && c3 && c4) {
+        btn.disabled = false;
+        btn.classList.remove('bg-slate-400', 'cursor-not-allowed');
+        btn.classList.add('bg-fmusp-green', 'hover:bg-fmusp-darkgreen', 'cursor-pointer');
+      } else {
+        btn.disabled = true;
+        btn.classList.add('bg-slate-400', 'cursor-not-allowed');
+        btn.classList.remove('bg-fmusp-green', 'hover:bg-fmusp-darkgreen', 'cursor-pointer');
+      }
+    }
+
+    // GATING DOS CHECKBOXES DE LICENCIAMENTO COMERCIAL
+    function checkComercialReady() {
+      const et1 = document.getElementById('com_et1').checked;
+      const et2 = document.getElementById('com_et2').checked;
+      const c1 = document.getElementById('com_c1').checked;
+      const c2 = document.getElementById('com_c2').checked;
+      const c3 = document.getElementById('com_c3').checked;
+      const btn = document.getElementById('btn-submit-comercial');
+
+      if (et1 && et2 && c1 && c2 && c3) {
+        btn.disabled = false;
+        btn.classList.remove('bg-slate-400', 'cursor-not-allowed');
+        btn.classList.add('bg-fmusp-green', 'hover:bg-fmusp-darkgreen', 'cursor-pointer');
+      } else {
+        btn.disabled = true;
+        btn.classList.add('bg-slate-400', 'cursor-not-allowed');
+        btn.classList.remove('bg-fmusp-green', 'hover:bg-fmusp-darkgreen', 'cursor-pointer');
+      }
+    }
+
+    // GATING DOS CHECKBOXES DE DOAÇÃO
     function checkDoacaoReady() {
       const c1 = document.getElementById('doa_c1').checked;
       const c2 = document.getElementById('doa_c2').checked;
@@ -1275,46 +1317,7 @@
       }
     }
 
-    // CHECKBOX GATING: PESQUISA
-    function checkPesquisaReady() {
-      const c1 = document.getElementById('pesq_c1').checked;
-      const c2 = document.getElementById('pesq_c2').checked;
-      const c3 = document.getElementById('pesq_c3').checked;
-      const c4 = document.getElementById('pesq_c4').checked;
-      const btn = document.getElementById('btn-submit-pesquisa');
-
-      if (c1 && c2 && c3 && c4) {
-        btn.disabled = false;
-        btn.classList.remove('bg-slate-400', 'cursor-not-allowed');
-        btn.classList.add('bg-blue-700', 'hover:bg-blue-800', 'cursor-pointer');
-      } else {
-        btn.disabled = true;
-        btn.classList.add('bg-slate-400', 'cursor-not-allowed');
-        btn.classList.remove('bg-blue-700', 'hover:bg-blue-800', 'cursor-pointer');
-      }
-    }
-
-    // CHECKBOX GATING: COMERCIAL
-    function checkComercialReady() {
-      const et1 = document.getElementById('com_et1').checked;
-      const et2 = document.getElementById('com_et2').checked;
-      const c1 = document.getElementById('com_c1').checked;
-      const c2 = document.getElementById('com_c2').checked;
-      const c3 = document.getElementById('com_c3').checked;
-      const btn = document.getElementById('btn-submit-comercial');
-
-      if (et1 && et2 && c1 && c2 && c3) {
-        btn.disabled = false;
-        btn.classList.remove('bg-slate-400', 'cursor-not-allowed');
-        btn.classList.add('bg-amber-600', 'hover:bg-amber-700', 'cursor-pointer');
-      } else {
-        btn.disabled = true;
-        btn.classList.add('bg-slate-400', 'cursor-not-allowed');
-        btn.classList.remove('bg-amber-600', 'hover:bg-amber-700', 'cursor-pointer');
-      }
-    }
-
-    // FUNÇÃO AUXILIAR PARA CÁLCULO REAL DE HASH SHA-256 (Web Crypto API)
+    // CRIPTOGRAFIA SHA-256 EM TEMPO REAL
     async function gerarSha256(texto) {
       const msgUint8 = new TextEncoder().encode(texto);
       const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
@@ -1322,50 +1325,13 @@
       return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    // GERAÇÃO DE PROTOCOLO SEQUENCIAL
     function gerarNumeroProtocolo(sigla) {
       const ano = new Date().getFullYear();
       const randomNum = Math.floor(10000 + Math.random() * 90000);
       return `MHFM-${sigla}-${ano}-${randomNum}`;
     }
 
-    // HANDLER: SUBMISSÃO DE DOAÇÃO
-    async function handleDoacaoSubmit(event) {
-      event.preventDefault();
-      const protocolo = gerarNumeroProtocolo('DOA');
-      const timestamp = new Date().toISOString();
-      const nome = document.getElementById('doa_nome').value;
-      const doc = document.getElementById('doa_documento').value;
-      const bem = document.getElementById('doa_denominacao').value;
-      const userAgent = navigator.userAgent;
-      const ipSimulado = '143.107.' + Math.floor(Math.random() * 255) + '.' + Math.floor(Math.random() * 255);
-
-      const payloadString = `DOACAO|${protocolo}|${nome}|${doc}|${bem}|${timestamp}|${userAgent}|TERMO_DOACAO_INTEGRAL_V1_MHFMUSP`;
-      const hash = await gerarSha256(payloadString);
-
-      const novoRegistro = {
-        protocolo,
-        tipo: 'Doação de Acervo',
-        modulo: 'Doação',
-        solicitante: nome,
-        documento: doc,
-        objeto: bem,
-        timestamp,
-        ip: ipSimulado,
-        userAgent,
-        hash,
-        status: 'Pendente de Triagem Curatorial'
-      };
-
-      registros.unshift(novoRegistro);
-      localStorage.setItem('mhfm_registros', JSON.stringify(registros));
-
-      exibirModalRecibo(novoRegistro, 'Recibo Provisório de Doação de Acervo');
-      document.getElementById('form-doacao').reset();
-      checkDoacaoReady();
-    }
-
-    // HANDLER: SUBMISSÃO DE PESQUISA
+    // SUBMISSÃO: PESQUISA (Acesso e Reprodução)
     async function handlePesquisaSubmit(event) {
       event.preventDefault();
       const protocolo = gerarNumeroProtocolo('SOL');
@@ -1401,7 +1367,7 @@
       checkPesquisaReady();
     }
 
-    // HANDLER: SUBMISSÃO DE LICENCIAMENTO COMERCIAL
+    // SUBMISSÃO: LICENCIAMENTO COMERCIAL
     async function handleComercialSubmit(event) {
       event.preventDefault();
       const protocolo = gerarNumeroProtocolo('LIC');
@@ -1437,7 +1403,43 @@
       checkComercialReady();
     }
 
-    // EXIBIÇÃO DO MODAL DE RECIBO
+    // SUBMISSÃO: DOAÇÃO DE ACERVO
+    async function handleDoacaoSubmit(event) {
+      event.preventDefault();
+      const protocolo = gerarNumeroProtocolo('DOA');
+      const timestamp = new Date().toISOString();
+      const nome = document.getElementById('doa_nome').value;
+      const doc = document.getElementById('doa_documento').value;
+      const bem = document.getElementById('doa_denominacao').value;
+      const userAgent = navigator.userAgent;
+      const ipSimulado = '143.107.' + Math.floor(Math.random() * 255) + '.' + Math.floor(Math.random() * 255);
+
+      const payloadString = `DOACAO|${protocolo}|${nome}|${doc}|${bem}|${timestamp}|${userAgent}|TERMO_DOACAO_INTEGRAL_V1_MHFMUSP`;
+      const hash = await gerarSha256(payloadString);
+
+      const novoRegistro = {
+        protocolo,
+        tipo: 'Doação de Acervo',
+        modulo: 'Doação',
+        solicitante: nome,
+        documento: doc,
+        objeto: bem,
+        timestamp,
+        ip: ipSimulado,
+        userAgent,
+        hash,
+        status: 'Pendente de Triagem Curatorial'
+      };
+
+      registros.unshift(novoRegistro);
+      localStorage.setItem('mhfm_registros', JSON.stringify(registros));
+
+      exibirModalRecibo(novoRegistro, 'Recibo Provisório de Doação de Acervo');
+      document.getElementById('form-doacao').reset();
+      checkDoacaoReady();
+    }
+
+    // EXIBIÇÃO DO RECIBO
     function exibirModalRecibo(reg, titulo) {
       document.getElementById('recibo-titulo-modulo').textContent = titulo;
       document.getElementById('recibo-protocolo').textContent = reg.protocolo;
@@ -1456,7 +1458,7 @@
       document.getElementById('modal-receipt').classList.add('hidden');
     }
 
-    // RENDERIZAR TABELA DO PAINEL CURATORIAL (ADMIN)
+    // PAINEL CURATORIAL (ADMIN)
     function renderAdminTable() {
       const tbody = document.getElementById('admin-table-body');
       const emptyState = document.getElementById('admin-empty-state');
@@ -1470,7 +1472,7 @@
 
       registros.forEach((reg, index) => {
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 transition border-b border-slate-100';
+        tr.className = 'hover:bg-slate-50 transition';
 
         let badgeColor = 'bg-slate-100 text-slate-700';
         if (reg.modulo === 'Doação') badgeColor = 'bg-emerald-100 text-emerald-800';
@@ -1478,18 +1480,18 @@
         if (reg.modulo === 'Comercial') badgeColor = 'bg-amber-100 text-amber-800';
 
         tr.innerHTML = `
-          <td class="py-3 px-4 font-mono font-bold text-fmusp-green">${reg.protocolo}</td>
-          <td class="py-3 px-4">
-            <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold ${badgeColor}">${reg.tipo}</span>
+          <td class="py-2 px-3 font-mono font-bold text-fmusp-green">${reg.protocolo}</td>
+          <td class="py-2 px-3">
+            <span class="inline-block px-1.5 py-0.5 rounded text-[9px] font-bold ${badgeColor}">${reg.tipo}</span>
           </td>
-          <td class="py-3 px-4 font-medium text-slate-800">${reg.solicitante}</td>
-          <td class="py-3 px-4 font-mono text-[11px] text-slate-500">${reg.timestamp.split('T')[0]}</td>
-          <td class="py-3 px-4">
-            <span class="font-mono text-[10px] bg-slate-100 p-1 rounded border block max-w-[120px] truncate" title="${reg.hash}">${reg.hash}</span>
+          <td class="py-2 px-3 font-medium text-slate-800">${reg.solicitante}</td>
+          <td class="py-2 px-3 font-mono text-[10px] text-slate-500">${reg.timestamp.split('T')[0]}</td>
+          <td class="py-2 px-3">
+            <span class="font-mono text-[9px] bg-slate-100 p-0.5 rounded border block max-w-[100px] truncate" title="${reg.hash}">${reg.hash}</span>
           </td>
-          <td class="py-3 px-4 font-semibold text-[11px] text-slate-700">${reg.status}</td>
-          <td class="py-3 px-4 text-center">
-            <button onclick="verComprovante(${index})" class="text-xs font-bold text-fmusp-green hover:underline">Ver Recibo</button>
+          <td class="py-2 px-3 font-semibold text-[10px] text-slate-700">${reg.status}</td>
+          <td class="py-2 px-3 text-center">
+            <button onclick="verComprovante(${index})" class="text-xs font-bold text-fmusp-green hover:underline">Ver</button>
           </td>
         `;
         tbody.appendChild(tr);
@@ -1501,8 +1503,7 @@
       exibirModalRecibo(reg, `Comprovante Arquivado: ${reg.protocolo}`);
     }
 
-    // CARREGAR DADOS DEMO
-    async function carregarExemplos() {
+    function carregarExemplos() {
       const demoItems = [
         {
           protocolo: 'MHFM-DOA-2026-10492',
@@ -1536,7 +1537,7 @@
           modulo: 'Comercial',
           solicitante: 'Documentários Brasil História Ltda.',
           documento: '12.345.678/0001-90',
-          objeto: 'Série documental "Pioneiros da Saúde Pública" (Streaming nacional)',
+          objeto: 'Série documental "Pioneiros da Saúde Pública" (Streaming)',
           timestamp: '2026-09-22T09:45:10-03:00',
           ip: '177.18.204.33',
           userAgent: 'Mozilla/5.0 (X11; Linux x86_64)',
@@ -1550,7 +1551,6 @@
       renderAdminTable();
     }
 
-    // MODAL CUSTOMIZADO DE LIMPEZA (Conformidade com a diretriz No Alert / No Confirm)
     function abrirModalLimpar() {
       document.getElementById('modal-confirm-limpar').classList.remove('hidden');
     }
